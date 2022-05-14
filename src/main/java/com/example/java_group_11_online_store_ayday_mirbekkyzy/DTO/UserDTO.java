@@ -1,5 +1,6 @@
 package com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO;
 
+import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.User;
 import lombok.*;
 
 @Data
@@ -7,6 +8,16 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class UserDTO {
+
+
+    public static UserDTO from(User user) {
+        return builder()
+                .name(user.getName())
+                .login(user.getLogin())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .build();
+    }
 
     private Integer id;
     private String name;

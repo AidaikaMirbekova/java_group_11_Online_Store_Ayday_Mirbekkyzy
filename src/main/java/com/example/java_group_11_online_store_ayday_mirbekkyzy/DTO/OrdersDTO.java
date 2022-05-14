@@ -2,6 +2,8 @@ package com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -12,4 +14,5 @@ public class OrdersDTO {
     private Integer customer_id;
     private Integer product_id;
     private Integer quantity;
+    private LocalDateTime date;
 }

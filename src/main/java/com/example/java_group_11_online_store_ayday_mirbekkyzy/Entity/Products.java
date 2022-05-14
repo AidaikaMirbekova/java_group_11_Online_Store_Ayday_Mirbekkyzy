@@ -4,7 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.text.DecimalFormat;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "products")
@@ -18,19 +19,18 @@ public class Products {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
+    @NotNull
     private String name;
-
 
     private String image;
 
-
+    @PositiveOrZero
     private Integer quantity;
 
-
+    @NotNull
     private String description;
 
-
+    @Positive
     private Integer price;
 
 }

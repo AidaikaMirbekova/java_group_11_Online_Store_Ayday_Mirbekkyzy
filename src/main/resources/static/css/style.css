@@ -1,0 +1,30 @@
+.container{
+    margin-top: 5rem;
+    justify-content: center;
+    display: flex;
+
+}
+
+.card{
+    margin: 1rem;
+}
+
+.d-flex{
+    justify-content: center;
+}
+.main-nav{
+    margin-left: auto;
+    display: flex;
+}
+.sign_button{
+    margin-right:5px;
+}
+
+.user_info{
+    margin:5px 10px;
+}
+
+.bi-person-square{
+   font-size: 30px;
+  color: black;
+}

@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductsService {
     public final ProductsRepository productsRepository;
 
-    public Page<ProductsDTO> getAllProducts(){
+    public Page<ProductsDTO> getAllProducts() {
         Pageable pageable = PageRequest.of(0, 2, Sort.by("price").descending());
-        Page<Products> products= productsRepository.findAll(pageable);
+        Page<Products> products = productsRepository.findAll(pageable);
         return products.map(ProductsDTO::from);
     }
 }

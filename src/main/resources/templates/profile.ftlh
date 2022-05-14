@@ -26,53 +26,41 @@
 <#--Navbar-->
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/main">Online Store</a>
+        <a class="navbar-brand" href="/">Online Store</a>
             <nav class="profile">
                 <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
             </nav>
-        <nav class="search-nav">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn btn-info search-button" type="submit">Search</button>
-            </form>
-        </nav>
-        <nav class="main-nav">
-            <div class="user_info" style="color: black"></div>
-            <nav class="sign_button">
-                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
-                    Sign UP
-                </button>
+            <nav class="search-nav">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn btn-info search-button" type="submit">Search</button>
+                </form>
             </nav>
-            <nav>
-                <button type="button" class="btn btn-outline-warning" data-toggle="modal"
-                        data-target="#staticBackdrop">Sign IN
-                </button>
+            <nav class="main-nav">
+                <div class="user_info" style="color: black"></div>
+                <nav class="sign_button">
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+                        Sign UP
+                    </button>
+                </nav>
+                <nav>
+                    <button type="button" class="btn btn-outline-warning" data-toggle="modal"
+                            data-target="#staticBackdrop">Sign IN
+                    </button>
+                </nav>
+                <nav><span class="h3 mx-2 text-dark" id="log_out"><i class="bi bi-door-closed"></i></span></nav>
             </nav>
-            <nav><span class="h3 mx-2 text-dark" id="log_out"><i class="bi bi-door-closed"></i></span></nav>
-        </nav>
     </div>
 </nav>
 
 <#--Content-->
 <div class="container" style="text-align: center">
-    <#list products as product>
-        <div class="card mb-3" style="max-width: 540px;">
-
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="/images/${product.image}" class="img-fluid rounded-start" alt="">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Brand: ${product.name}</h5>
-                        <p class="card-text">Model: ${product.description}</p>
-                        <p class="card-text"><small class="text-muted">Price: ${product.price} som.</small></p>
-                    </div>
-                </div>
-            </div>
+    <div class="card" style="width: 18rem;">
+        <img src="/images/anonim.jpg" class="card-img-top" alt="#">
+        <div class="card-body card_profile">
 
         </div>
-    </#list>
+    </div>
 </div>
 
 
@@ -118,14 +106,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Sign up</button>
-                    </div>
-                    <div>
-                        <#if errors?? >
-                            <p>Входные данные с ошибками!</p>
-                            <#list errors as fieldError>
-                                <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
-                            </#list>
-                        </#if>
                     </div>
                 </form>
             </div>

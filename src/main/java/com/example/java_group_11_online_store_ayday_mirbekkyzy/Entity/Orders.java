@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.PositiveOrZero;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
@@ -26,7 +29,10 @@ public class Orders {
     @JoinColumn(name = "product_id")
     private Products product;
 
-
+    @PositiveOrZero
     private Integer quantity;
+
+    @Past
+    private LocalDateTime date;
 
 }

@@ -3,10 +3,10 @@ use `online_store`;
 create table `user_table`
 (
     `id`       INT         not null auto_increment,
-    `name`     varchar(20) not null default 'username',
-    `login`    varchar(20) not null default 'userlogin',
-    `email`    varchar(50) not null default 'useremail',
-    `password` varchar(60) not null default 'password',
+    `name`     varchar(20) ,
+    `login`    varchar(20),
+    `email`    varchar(50),
+    `password` varchar(60),
     primary key (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -28,11 +28,12 @@ create table `orders`(
     `customer_id` int(10),
     `product_id` int(10),
     `quantity` int(10),
+    `date` datetime,
     primary key (`id`),
     constraint `fk_customer` foreign key (`customer_id`) references `user_table` (`id`),
     constraint `fk_products` foreign key (`product_id`) references `products` (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 insert into user_table (`name`, `login`, `email`, `password`)values('test','test1','test@test','test');
-insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('lenovo','images/1.jpg','500','Notebook Lenovo','36500');
-insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('lenovo','images/1.jpg','500','Notebook Lenovo','36500');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('ASUS','1.jpg','500','Notebook ASUS','54000');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('lenovo','1.jpg','500','Notebook Lenovo','36500');

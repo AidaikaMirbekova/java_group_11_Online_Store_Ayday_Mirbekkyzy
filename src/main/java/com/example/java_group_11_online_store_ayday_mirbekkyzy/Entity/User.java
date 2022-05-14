@@ -6,9 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,18 +23,20 @@ public class User implements UserDetails {
     private Integer id;
 
     @NotNull
-    @Size(min = 2)
+    @Size(min = 2, max = 24 , message = "Name cannot be shorter than 2 letters and longer than 24 letters!!!")
+    @Pattern(regexp = "^[^\\d\\s]+$", message = "Should contain only letters!!!")
     private String name;
 
-    @NotNull
-    @Size(min = 5)
+    @NotBlank
+    @Size(min = 5,max = 15,message = "Login cannot be shorter than 5 letters and longer than 15 letters!!!")
     private String login;
 
     @NotNull
+    @NotBlank
     @Email
     private String email;
 
-    @NotNull
+    @NotBlank
     @Size(min = 5)
     private String password;
 
@@ -49,6 +49,7 @@ public class User implements UserDetails {
     public String getUsername() {
         return getEmail();
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
