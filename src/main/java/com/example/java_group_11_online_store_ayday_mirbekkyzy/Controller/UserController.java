@@ -27,7 +27,6 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@Valid User form, BindingResult validResult, RedirectAttributes attributes) throws Exception {
-//        userService.register(form);
         attributes.addFlashAttribute("form",form);
         if (validResult.hasFieldErrors()){
             attributes.addFlashAttribute("errors",validResult.getFieldErrors());
