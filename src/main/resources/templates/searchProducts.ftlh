@@ -26,13 +26,13 @@
 <#--Navbar-->
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Online Store</a>
+        <a class="navbar-brand" href="/main">Online Store</a>
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
-                <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="5" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
                 <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
             </form>
         </nav>
@@ -54,41 +54,59 @@
 </nav>
 
 <#--Content-->
-<div class="container">
-    <#list products as product>
-        <div class="card card-deck mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="/images/${product.image}" class="img-fluid rounded-start" alt="">
+<div class="container content_container">
+    <aside class="select_products">
+        <h5 style="text-align: left">Price range:</h5>
+        <form action="/priceSearch" class="d-flex">
+            <div class="form-row">
+                <div class="col-5">
+                    <input type="text" name="more" id="more" class="form-control" placeholder="0" value="0">
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Brand: ${product.name}</h5>
-                        <p class="card-text">Model: ${product.description}</p>
-                        <p class="card-text"><small class="text-muted">Price: ${product.price} som.</small></p>
+                <div class="col-5">
+                    <input type="text" name="less" id="less" class="form-control" placeholder="0" required>
+                </div>
+                <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
+            </div>
+        </form>
+    </aside>
+    <section class="products_list">
+        <#list products as product>
+            <div class="card card-deck mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/images/${product.image}" class="img-fluid rounded-start" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Brand: ${product.name}</h5>
+                            <p class="card-text">Model: ${product.description}</p>
+                            <p class="card-text"><small>Price: ${product.price} som.</small></p>
+                            <p class="card-text"><small class="text-muted">In stock: ${product.quantity} pieces</small></p>
+                        </div>
                     </div>
                 </div>
+
             </div>
-
-        </div>
-    </#list>
-
+        </#list>
+    </section>
 </div>
-    <div>
+<footer>
+    <div class="container">
         <#if pages??>
             <#if pages.hasPrevious()>
                 <a href="/?page=${pages.pageNumber-1}&size=4" style="float: left" tabindex="0">Previous page</a>
             <#else>
-                <span id="loadPrev">Previous page</span>
+                <span id="loadPrev" hidden>First page</span>
             </#if>
 
             <#if pages.pageNumber=lastPage>
-                <span id="loadPrev" style="float: right">Last page</span>
+                <span id="loadPrev"hidden style="float: right">Last page</span>
             <#else>
                 <a href="/?page=${pages.pageNumber+1}&size=4" style="float: right" tabindex="0">Next page</a>
             </#if>
         </#if>
     </div>
+</footer>
 
 
 <#--Modal register-->
@@ -134,6 +152,14 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Sign up</button>
                     </div>
+                    <div>
+                        <#if errors?? >
+                            <p>Входные данные с ошибками!</p>
+                            <#list errors as fieldError>
+                                <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                            </#list>
+                        </#if>
+                    </div>
                 </form>
             </div>
         </div>
@@ -155,7 +181,7 @@
                     </div>
                     <div class="mb-3 row">
                         <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" placeholder="Password"  required>
+                            <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Sign in</button>

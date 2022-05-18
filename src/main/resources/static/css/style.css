@@ -1,5 +1,3 @@
-.container{
-}
 
 .card{
     width: 500px;
@@ -8,9 +6,6 @@
 
 }
 
-.d-flex{
-    justify-content: center;
-}
 .main-nav{
     margin-left: auto;
     display: flex;
@@ -26,4 +21,29 @@
 .bi-person-square{
    font-size: 30px;
   color: black;
+}
+.content_container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+aside{
+    margin-left: 50px;
+    margin-top: 15px;
+    float: left;
+    width: 30%;
+}
+
+.btn-search_price{
+    margin: 5px 100px;
+}
+
+section{
+    float: right;
+    width: 63%;
+}
+
+footer{
+    margin-bottom: 3rem;
+    clear: both;
 }

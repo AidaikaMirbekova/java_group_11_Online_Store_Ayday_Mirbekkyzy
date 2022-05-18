@@ -41,4 +41,16 @@ public class ProductsController {
         model.addAttribute("lastPage",count);
         return "searchProducts";
     }
+
+    @RequestMapping("/priceSearch")
+    public String searchByPrice(Model model,@Param("more") Integer more,@Param("less") Integer less,@PageableDefault (sort = "id",direction = Sort.Direction.DESC,value = 4) Pageable page){
+        Page<ProductsDTO> products = productsService.priceSearch(more,less,page);
+        var count = products.getTotalPages()-1;
+        model.addAttribute("products", products.getContent());
+        model.addAttribute("more", more);
+        model.addAttribute("less", less);
+        model.addAttribute("pages", products.getPageable());
+        model.addAttribute("lastPage",count);
+        return "searchProducts";
+    }
 }

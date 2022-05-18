@@ -31,9 +31,9 @@
                 <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
             </nav>
             <nav class="search-nav">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn btn-info search-button" type="submit">Search</button>
+                <form action="/search" class="d-flex search_products">
+                    <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
+                    <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
                 </form>
             </nav>
             <nav class="main-nav">

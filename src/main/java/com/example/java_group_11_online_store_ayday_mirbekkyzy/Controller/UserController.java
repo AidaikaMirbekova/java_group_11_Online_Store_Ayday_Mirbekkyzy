@@ -39,7 +39,7 @@ public class UserController {
     public String login(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         userService.loadUserByUsername(user.getUsername());
-        return "redirect:/main";
+        return "redirect:/profile";
     }
 
     @GetMapping("/profile")

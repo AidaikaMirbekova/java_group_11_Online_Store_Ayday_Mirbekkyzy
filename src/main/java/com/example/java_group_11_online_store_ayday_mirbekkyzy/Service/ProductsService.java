@@ -29,4 +29,9 @@ public class ProductsService {
             return productsRepository.findAll(pageable).map(ProductsDTO::from);
         }
     }
+
+    public Page<ProductsDTO> priceSearch(Integer more,Integer less,Pageable pageable){
+        Page<Products> products = productsRepository.findProductsByPriceGreaterThanAndPriceIsLessThan(more,less,pageable);
+        return products.map(ProductsDTO::from);
+    }
 }
