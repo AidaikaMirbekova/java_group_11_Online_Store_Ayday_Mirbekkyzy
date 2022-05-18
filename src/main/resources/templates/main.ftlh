@@ -27,9 +27,9 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/main">Online Store</a>
-            <nav class="profile">
-                <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
-            </nav>
+        <nav class="profile">
+            <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
+        </nav>
         <nav class="search-nav">
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -54,10 +54,9 @@
 </nav>
 
 <#--Content-->
-<div class="container" style="text-align: center">
+<div class="container">
     <#list products as product>
-        <div class="card mb-3" style="max-width: 540px;">
-
+        <div class="card card-deck mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="/images/${product.image}" class="img-fluid rounded-start" alt="">
@@ -73,6 +72,21 @@
 
         </div>
     </#list>
+    <div>
+        <#if pages??>
+            <#if pages.hasPrevious()>
+                <a href="/?page=${pages.pageNumber-1}&size=4" style="float: left" tabindex="0">Previous page</a>
+            <#else>
+                <span id="loadPrev">Previous page</span>
+            </#if>
+
+            <#if pages.pageNumber=lastPage>
+                <span id="loadPrev" style="float: right">Last page</span>
+            <#else>
+                <a href="/?page=${pages.pageNumber+1}&size=4" style="float: right" tabindex="0">Next page</a>
+            </#if>
+        </#if>
+    </div>
 </div>
 
 
@@ -148,7 +162,7 @@
                     </div>
                     <div class="mb-3 row">
                         <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" placeholder="Password"  required>
+                            <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Sign in</button>
