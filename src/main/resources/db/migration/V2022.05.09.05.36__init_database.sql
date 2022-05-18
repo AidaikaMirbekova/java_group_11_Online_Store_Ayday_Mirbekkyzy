@@ -36,4 +36,9 @@ create table `orders`(
 
 insert into user_table (`name`, `login`, `email`, `password`)values('test','test1','test@test','test');
 insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('ASUS','1.jpg','500','Notebook ASUS','54000');
-insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('lenovo','1.jpg','500','Notebook Lenovo','36500');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('lenovo','4.jpg','694','Notebook Lenovo','36500');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('HP','3.jpg','180','Notebook HP','45500');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('Samsung','5.jpg','236','Notebook Lenovo','36500');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('Dell','6.jpg','89','Notebook Dell','45921');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('Xiomi','7.jpg','45','Notebook Xiomi','50000');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('Acer','1.jpg','582','Notebook Acer','159902');
