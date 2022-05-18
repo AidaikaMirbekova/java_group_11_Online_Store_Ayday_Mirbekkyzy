@@ -97,3 +97,4 @@ $('#log_out').on('click', e => {
     document.querySelector('.user_block').remove();
     document.querySelector('.profileBlock').remove();
 })
+

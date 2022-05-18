@@ -26,7 +26,7 @@
 <#--Navbar-->
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/main">Online Store</a>
+        <a class="navbar-brand" href="/">Online Store</a>
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
         </nav>
@@ -72,6 +72,7 @@
 
         </div>
     </#list>
+
 </div>
     <div>
         <#if pages??>
@@ -133,14 +134,6 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Sign up</button>
                     </div>
-                    <div>
-                        <#if errors?? >
-                            <p>Входные данные с ошибками!</p>
-                            <#list errors as fieldError>
-                                <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
-                            </#list>
-                        </#if>
-                    </div>
                 </form>
             </div>
         </div>
@@ -162,7 +155,7 @@
                     </div>
                     <div class="mb-3 row">
                         <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" placeholder="Password" required>
+                            <input type="password" name="password" class="form-control" placeholder="Password"  required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Sign in</button>
