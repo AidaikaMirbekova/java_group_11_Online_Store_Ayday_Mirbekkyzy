@@ -35,7 +35,7 @@ create table `orders`(
     constraint `fk_products` foreign key (`product_id`) references `products` (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-insert into user_table (`name`, `login`, `email`, `password`,`role`)values('test','test1','test@test','test','ADMIN');
+
 insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('ASUS','1.jpg','500','Notebook ASUS','54000');
 insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('lenovo','4.jpg','694','Notebook Lenovo','36500');
 insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('HP','3.jpg','180','Notebook HP','45500');

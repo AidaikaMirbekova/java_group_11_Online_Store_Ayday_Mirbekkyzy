@@ -66,10 +66,10 @@
     <div class="card" style="width: 18rem;">
         <img src="/images/anonim.jpg" class="card-img-top" alt="#">
         <div class="card-body card_profile">
-            <p>${user.name}</p>
-            <p>${user.login}</p>
-            <p>${user.email}</p>
-            <p>${user.role}</p>
+            <p>Name: ${user.name}</p>
+            <p>Login: ${user.login}</p>
+            <p>Email: ${user.email}</p>
+            <p>Role: ${user.role}</p>
         </div>
     </div>
     <#else>
