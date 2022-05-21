@@ -16,6 +16,7 @@ public class UserDTO {
                 .login(user.getLogin())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .role(user.getRole().toString())
                 .build();
     }
 
@@ -24,4 +25,5 @@ public class UserDTO {
     private String login;
     private String email;
     private String password;
+    private String role;
 }
