@@ -1,14 +1,9 @@
 package com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Collection;
-import java.util.List;
+
 
 @Entity
 @Table(name = "user_table")
@@ -16,7 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,34 +35,12 @@ public class User implements UserDetails {
     @Size(min = 5)
     private String password;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("FULL"));
-    }
 
-    @Override
-    public String getUsername() {
-        return getEmail();
-    }
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private RolesEnum role;
 
+    @Builder.Default
+    private boolean enabled = true;
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
