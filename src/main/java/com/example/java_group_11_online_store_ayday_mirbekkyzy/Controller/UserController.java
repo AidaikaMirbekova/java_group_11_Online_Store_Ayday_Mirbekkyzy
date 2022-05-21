@@ -69,11 +69,4 @@ public class UserController {
         return ResponseEntity.unprocessableEntity()
                 .body(apiFieldErrors);
     }
-
-
-    @GetMapping("/logout")
-    public String loginPage(){
-        return "redirect:/";
-    }
-
 }

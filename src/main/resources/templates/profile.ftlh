@@ -32,6 +32,9 @@
             </nav>
             <nav class="search-nav">
                 <form action="/search" class="d-flex search_products">
+                    <#if _csrf??>
+                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                    </#if>
                     <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
                     <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
                 </form>
@@ -39,103 +42,39 @@
             <nav class="main-nav">
                 <div class="user_info" style="color: black"></div>
                 <nav class="sign_button">
-                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
-                        Sign UP
+                    <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
                     </button>
                 </nav>
                 <nav>
-                    <button type="button" class="btn btn-outline-warning" data-toggle="modal"
-                            data-target="#staticBackdrop">Sign IN
+                    <button type="button" class="btn btn-outline-warning"><a href="/login">Sign In</a>
                     </button>
                 </nav>
-                <nav><span class="h3 mx-2 text-dark" id="log_out"><i class="bi bi-door-closed"></i></span></nav>
+                <form class="flex box-128" action="/logout" method="post">
+                    <#if _csrf??>
+                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                    </#if>
+                    <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
+                </form>
+
             </nav>
     </div>
 </nav>
 
 <#--Content-->
 <div class="container" style="text-align: center">
+    <#if user??>
     <div class="card" style="width: 18rem;">
         <img src="/images/anonim.jpg" class="card-img-top" alt="#">
         <div class="card-body card_profile">
-
+            <p>${user.name}</p>
+            <p>${user.login}</p>
+            <p>${user.email}</p>
+            <p>${user.role}</p>
         </div>
     </div>
-</div>
-
-
-<#--Modal register-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Register</h5>
-            </div>
-            <div class="modal-body">
-                <form action="/register" id="sign_up" class="sign-up-htm">
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email"
-                                   required>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" id="inputName" placeholder="Name"
-                                   minlength="2" maxlength="24" required>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="text" name="login" class="form-control" id="inputLogin" placeholder="Login"
-                                   minlength="5" maxlength="15" required>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" id="inputPassword"
-                                   placeholder="Password" minlength="5" required>
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" id="repeatPassword"
-                                   placeholder="Repeat Password" minlength="5" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Sign up</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<#--Modal Login-->
-<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Login</h5>
-            </div>
-            <div class="modal-body">
-                <form action="/login" method="post" id="sign_in" class="sign-in-htm">
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="email" name="username" class="form-control" placeholder="Email" required>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" placeholder="Password"  required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <#else>
+        <h1>Пользователь не найден!</h1>
+    </#if>
 </div>
 
 <script src="/js/script.js"></script>

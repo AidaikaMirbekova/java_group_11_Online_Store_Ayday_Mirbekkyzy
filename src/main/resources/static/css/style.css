@@ -18,11 +18,16 @@
     margin:5px 10px;
 }
 
+.sign{
+    margin-right: 30px;
+}
+
 .bi-person-square{
    font-size: 30px;
   color: black;
 }
 .content_container{
+    margin-top:5rem;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -46,4 +51,12 @@ section{
 footer{
     margin-bottom: 3rem;
     clear: both;
+}
+
+.log_out{
+    margin: 0;
+    padding: 0;
+    border: 0; outline: none;
+    background-color: transparent;
+
 }
