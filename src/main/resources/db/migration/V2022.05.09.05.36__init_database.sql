@@ -19,7 +19,7 @@ create table `products`
     `image` varchar(100),
     `quantity` int(10),
     `description` varchar(500),
-    `price` int(10) ,
+    `price` float (10) ,
     primary key (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -36,7 +36,7 @@ create table `orders`(
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
-insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('ASUS','1.jpg','500','Notebook ASUS','54000');
+insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('ASUS','1.jpg','500','Notebook ASUS','54000.50');
 insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('lenovo','4.jpg','694','Notebook Lenovo','36500');
 insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('HP','3.jpg','180','Notebook HP','45500');
 insert into products (`name`, `image`, `quantity`, `description`, `price`) values ('Samsung','5.jpg','236','Notebook Lenovo','36500');

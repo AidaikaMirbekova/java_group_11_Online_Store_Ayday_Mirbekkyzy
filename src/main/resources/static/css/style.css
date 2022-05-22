@@ -1,62 +1,83 @@
 
-.card{
+.card {
     width: 500px;
     display: inline-flex;
-    margin:1rem;
+    margin: 1rem;
 
 }
 
-.main-nav{
+a {
+    color: black;
+    text-decoration: none;
+
+}
+
+.main-nav {
     margin-left: auto;
     display: flex;
 }
-.sign_button{
-    margin-right:5px;
+
+.sign_button {
+    margin-right: 5px;
 }
 
-.user_info{
-    margin:5px 10px;
+.user_info {
+    margin: 5px 10px;
 }
 
-.sign{
+.sign {
     margin-right: 30px;
 }
 
-.bi-person-square{
-   font-size: 30px;
-  color: black;
+.bi-person-square {
+    font-size: 30px;
+    color: black;
 }
-.content_container{
-    margin-top:5rem;
+
+.content_container {
+    margin-top: 5rem;
     display: flex;
     justify-content: center;
     text-align: center;
 }
-aside{
+
+aside {
     margin-left: 50px;
     margin-top: 15px;
     float: left;
     width: 30%;
 }
 
-.btn-search_price{
+.btn-search_price {
     margin: 5px 100px;
 }
 
-section{
+section {
     float: right;
     width: 63%;
 }
 
-footer{
+footer {
     margin-bottom: 3rem;
     clear: both;
 }
 
-.log_out{
+.log_out, .basket_button{
     margin: 0;
     padding: 0;
-    border: 0; outline: none;
+    border: 0;
+    outline: none;
     background-color: transparent;
 
 }
+
+/*basket*/
+.form_basket {
+    display: flex;
+    justify-content: center;
+}
+
+#add_busket {
+    text-align: center;
+}
+

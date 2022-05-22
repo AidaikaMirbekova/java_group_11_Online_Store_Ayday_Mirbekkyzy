@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <meta name="_csrf_token" content="${_csrf.token}"/>
+
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -28,25 +31,19 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Online Store</a>
         <nav class="profile">
-            <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
+            <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
-                           value="${(_csrf.token)!'--no-token--'}"/>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
-                <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
-                       placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
                 <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
             </form>
         </nav>
         <nav class="main-nav">
             <div class="user_info" style="color: black"></div>
-            <nav class="basket">
-                <button type="button" class="basket_button"><a href="/api/basket"><i class="bi bi-cart2 h3 mx-2"></i></a>
-                </button>
-            </nav>
             <nav class="sign_button">
                 <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
                 </button>
@@ -57,8 +54,7 @@
             </nav>
             <form class="flex box-128" action="/logout" method="post">
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
-                           value="${(_csrf.token)!'--no-token--'}"/>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
                 <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
             </form>
@@ -67,46 +63,42 @@
 </nav>
 
 <#--Content-->
-<div class="container content_container">
-    <aside class="select_products col-ms-2">
-        <h5 style="text-align: left">Price range:</h5>
-        <form action="/priceSearch" class="d-flex">
-            <#if _csrf??>
-                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
-            </#if>
-            <div class="form-row">
-                <div class="col-5">
-                    <input type="text" name="more" id="more" class="form-control" placeholder="0" value="0">
-                </div>
-                <div class="col-5">
-                    <input type="text" name="less" id="less" class="form-control" placeholder="0" required>
-                </div>
-                <button class="btn btn btn-info btn-search_price" type="submit" value="Search">Search</button>
-            </div>
-        </form>
-    </aside>
-    <section class="products_list col-ms-4">
-        <#list products as product>
-            <div class="card card-deck mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="/images/${product.image}" class="img-fluid rounded-start" alt="">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Brand: ${product.name}</h5>
-                            <p class="card-text">Model: ${product.description}</p>
-                            <p class="card-text"><small>Price: ${product.price} som.</small></p>
-                            <p class="card-text"><small class="text-muted">In stock: ${product.quantity} pieces</small>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+    <h5 style="text-align: center;margin-top: 5rem">Your basket</h5>
+    <#if baskets??>
+        <table class="table">
+                 <thead class="thead-light">
+            <tr>
+                <th scope="col">Products</th>
+                <th scope="col">Description</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
 
-            </div>
-        </#list>
-    </section>
+            <tbody>
+            <#list baskets as product>
+            <tr>
+                <td>${product.name}</td>
+                <td>${product.description}</td>
+                <td><input type="number" value="1"></td>
+                <td>${product.price}</td>
+            </tr>
+            </#list>
+            </tbody>
+        </table>
+            <form action="/api/basket/empty" method="post" class="form_basket">
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                </#if>
+                <button class="btn btn-outline-info">Delete products</button>
+            </form>
+        <#else>
+            <h1 style="text-align: center">Basket is empty!!!</h1>
+            </#if>
 </div>
+
+<#--footer-->
 <footer>
     <div class="container">
         <#if pages??>
@@ -117,7 +109,7 @@
             </#if>
 
             <#if pages.pageNumber=lastPage>
-                <span id="loadPrev" hidden style="float: right">Last page</span>
+                <span id="loadPrev"hidden style="float: right">Last page</span>
             <#else>
                 <a href="/?page=${pages.pageNumber+1}&size=4" style="float: right" tabindex="0">Next page</a>
             </#if>

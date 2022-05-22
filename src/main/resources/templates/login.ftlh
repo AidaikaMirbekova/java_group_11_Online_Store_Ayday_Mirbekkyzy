@@ -44,6 +44,10 @@
         </nav>
         <nav class="main-nav">
             <div class="user_info" style="color: black"></div>
+            <nav class="basket">
+                <button type="button" class="basket_button"><a href="/api/basket"><i class="bi bi-cart2 h3 mx-2"></i></a>
+                </button>
+            </nav>
             <nav>
                 <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
                 </button>

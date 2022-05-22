@@ -31,19 +31,25 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Online Store</a>
         <nav class="profile">
-            <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
+            <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
-                <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
+                       placeholder="Search" aria-label="Search">
                 <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
             </form>
         </nav>
         <nav class="main-nav">
             <div class="user_info" style="color: black"></div>
+            <nav class="basket">
+                <button type="button" class="basket_button"><a href="/api/basket"><i class="bi bi-cart2 h3 mx-2"></i></a>
+                </button>
+            </nav>
             <nav class="sign_button">
                 <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
                 </button>
@@ -54,7 +60,8 @@
             </nav>
             <form class="flex box-128" action="/logout" method="post">
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
                 <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
             </form>
@@ -64,46 +71,68 @@
 
 <#--Content-->
 <div class="container content_container">
-<aside class="select_products col-ms-2">
-    <h5 style="text-align: left">Price range:</h5>
-    <form action="/priceSearch" class="d-flex">
-        <#if _csrf??>
-            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
-        </#if>
-        <div class="form-row">
-            <div class="col-5">
-                <input type="text" name="more" id="more" class="form-control" placeholder="0" value="0">
-            </div>
-            <div class="col-5">
-                <input type="text" name="less" id="less" class="form-control" placeholder="0" required>
-            </div>
-            <button class="btn btn btn-info btn-search_price" type="submit" value="Search">Search</button>
-        </div>
-    </form>
-</aside>
-<section class="products_list col-ms-4">
-    <#list products as product>
-        <div class="card card-deck mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="/images/${product.image}" class="img-fluid rounded-start" alt="">
+    <#--    Search products by price-->
+    <aside class="select_products col-ms-2">
+        <h5 style="text-align: left">Price range:</h5>
+        <form action="/priceSearch" class="d-flex">
+            <#if _csrf??>
+                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+            </#if>
+            <div class="form-row">
+                <div class="col-5">
+                    <input type="text" name="more" id="more" class="form-control" placeholder="0" value="0">
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Brand: ${product.name}</h5>
-                        <p class="card-text">Model: ${product.description}</p>
-                        <p class="card-text"><small>Price: ${product.price} som.</small></p>
-                        <p class="card-text"><small class="text-muted">In stock: ${product.quantity} pieces</small></p>
+                <div class="col-5">
+                    <input type="text"  name="less" id="less" class="form-control" placeholder="0" required>
+                </div>
+                <button class="btn btn btn-info btn-search_price" type="submit" value="Search">Search</button>
+            </div>
+        </form>
+    </aside>
+
+    <#--    List products-->
+    <section class="products_list col-ms-4">
+        <#list products as product>
+            <div class="card card-deck mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/images/${product.image}" class="img-fluid rounded-start" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Brand: ${product.name}</h5>
+                            <p class="card-text">Model: ${product.description}</p>
+                            <p class="card-text"><small>Price: ${product.price} som.</small></p>
+                            <p class="card-text"><small class="text-muted">In stock: ${product.quantity} pieces</small>
+                            </p>
+
+
+                            <#--                        add to basket form-->
+                            <form action="/api/basket/add" method="post" id="basket-form">
+                                <#if _csrf??>
+                                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                           value="${(_csrf.token)!'--no-token--'}"/>
+                                </#if>
+                                <div>
+                                    <input name="id" value="${product.id}" hidden>
+                                    <input name="quantity" value="1" hidden>
+                                    <input type="number" inputmode="decimal" name="price" value="${product.price}"
+                                           hidden>
+                                    <input name="username" value="${(user.email)!''}" hidden>
+                                    <button class="btn btn-light" id="add_busket" type="submit">Добавить в корзину
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-    </#list>
-</section>
+        </#list>
+    </section>
 </div>
-    <footer>
-        <div class="container">
+<footer>
+    <div class="container">
         <#if pages??>
             <#if pages.hasPrevious()>
                 <a href="/?page=${pages.pageNumber-1}&size=4" style="float: left" tabindex="0">Previous page</a>
@@ -112,13 +141,13 @@
             </#if>
 
             <#if pages.pageNumber=lastPage>
-                <span id="loadPrev"hidden style="float: right">Last page</span>
+                <span id="loadPrev" hidden style="float: right">Last page</span>
             <#else>
                 <a href="/?page=${pages.pageNumber+1}&size=4" style="float: right" tabindex="0">Next page</a>
             </#if>
         </#if>
-        </div>
-    </footer>
+    </div>
+</footer>
 <script src="/js/script.js"></script>
 </body>
 </html>
