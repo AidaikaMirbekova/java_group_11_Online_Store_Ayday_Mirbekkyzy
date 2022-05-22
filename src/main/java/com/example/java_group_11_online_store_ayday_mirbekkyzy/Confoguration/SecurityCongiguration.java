@@ -37,7 +37,7 @@ public class SecurityCongiguration extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true);
 
         http.authorizeRequests()
-                .antMatchers("/profile")
+                .antMatchers("/api/**")
                 .authenticated();
 
         http.authorizeRequests()
