@@ -30,7 +30,7 @@ public class ProductsService {
         }
     }
 
-    public Page<ProductsDTO> priceSearch(Integer more,Integer less,Pageable pageable){
+    public Page<ProductsDTO> priceSearch(Float more,Float less,Pageable pageable){
         Page<Products> products = productsRepository.findProductsByPriceGreaterThanAndPriceIsLessThan(more,less,pageable);
         return products.map(ProductsDTO::from);
     }

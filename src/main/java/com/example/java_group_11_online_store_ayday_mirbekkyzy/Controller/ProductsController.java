@@ -43,7 +43,7 @@ public class ProductsController {
     }
 
     @RequestMapping("/priceSearch")
-    public String searchByPrice(Model model,@Param("more") Integer more,@Param("less") Integer less,@PageableDefault (sort = "id",direction = Sort.Direction.DESC,value = 4) Pageable page){
+    public String searchByPrice(Model model,@Param("more") Float more,@Param("less") Float less,@PageableDefault (sort = "id",direction = Sort.Direction.DESC,value = 4) Pageable page){
         Page<ProductsDTO> products = productsService.priceSearch(more,less,page);
         var count = products.getTotalPages()-1;
         model.addAttribute("products", products.getContent());

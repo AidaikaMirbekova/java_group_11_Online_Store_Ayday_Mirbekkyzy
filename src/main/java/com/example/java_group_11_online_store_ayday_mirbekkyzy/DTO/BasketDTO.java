@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class BasketDTO {
 
-    public static  BasketDTO from(Basket basket){
+    public static BasketDTO from(Basket basket){
         return builder()
                 .id(basket.getId())
                 .products_id(basket.getProduct())
