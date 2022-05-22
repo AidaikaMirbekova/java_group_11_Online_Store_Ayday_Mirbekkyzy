@@ -13,7 +13,7 @@ public class ProductsDTO {
     private String image;
     private Integer quantity;
     private String description;
-    private Integer price;
+    private Float price;
 
     public static ProductsDTO from(Products products){
         return builder()

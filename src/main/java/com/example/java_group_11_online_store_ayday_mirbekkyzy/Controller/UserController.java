@@ -52,7 +52,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/api/profile")
     public String pageCustomerProfile(Model model, Principal principal) {
         var user = userService.login(principal.getName());
         model.addAttribute("user", user);
