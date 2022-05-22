@@ -1,4 +1,5 @@
 package com.example.java_group_11_online_store_ayday_mirbekkyzy.Controller;
+
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Basket;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Products;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.BasketRepository;
@@ -50,11 +51,11 @@ public class BasketController {
             model.addAttribute("pages", userBasket.getPageable());
             model.addAttribute("lastPage", count);
             return "userBasket";
-        }else if (userBasket.isEmpty() && !basket.isEmpty()) {
+        } else if (userBasket.isEmpty() && !basket.isEmpty()) {
             model.addAttribute("baskets", basket);
             return "basket";
         }
-            return "basket";
+        return "basket";
     }
 
 
@@ -71,35 +72,38 @@ public class BasketController {
 //        }
 
 
-// метод для добавления в "корзину" через форму
+    // метод для добавления в "корзину" через форму
 // демонстрация добавления через объект HttpSession session
-@PostMapping("/api/basket/add")
-public String addToBasket(@RequestParam Integer id,HttpSession session,Model model,@Valid Basket basket,Principal principal){
-        if(session!=null){
-        var user=userService.login(principal.getName());
-        var product=productRepository.findById(id);
-        model.addAttribute("user",user);
-        model.addAttribute("product",product);
-        basketService.addToBasket(basket,id,user.getEmail());
+    @PostMapping("/api/basket/add")
+    public String addToBasket(@RequestParam Integer id, HttpSession session, Model model, @Valid Basket basket, Principal principal) {
+        if (session != null) {
+            var user = userService.login(principal.getName());
+            var product = productRepository.findById(id);
+            model.addAttribute("user", user);
+            model.addAttribute("product", product);
+            basketService.addToBasket(basket, id, user.getEmail());
 
-        var attr=session.getAttribute(Constants.BASKET_ID);
-        if(attr==null){
-        session.setAttribute(Constants.BASKET_ID,new ArrayList<String>());
+            var attr = session.getAttribute(Constants.BASKET_ID);
+            if (attr == null) {
+                session.setAttribute(Constants.BASKET_ID, new ArrayList<String>());
+            }
+            try {
+                var list = (List<Products>) session.getAttribute(Constants.BASKET_ID);
+                list.add(product.get());
+            } catch (ClassCastException ignored) {
+                ignored.printStackTrace();
+            }
         }
-        try{
-        var list=(List<Products>)session.getAttribute(Constants.BASKET_ID);
-        list.add(product.get());
-        }catch(ClassCastException ignored){
-            ignored.printStackTrace();
-        }
-        }
-        return"redirect:/api/basket";
-        }
+        return "redirect:/api/basket";
+    }
 
 
-@PostMapping("/api/basket/empty")
-public String emptyBasket(HttpSession session){
+    @PostMapping("/api/basket/empty")
+    public String emptyBasket(HttpSession session, Principal principal,Model model) {
         session.removeAttribute(Constants.BASKET_ID);
-        return"redirect:/api/basket";
-        }
+        var user = userService.login(principal.getName());
+        basketService.deleteBasket(user.getEmail());
+        model.addAttribute("user", user);
+        return "redirect:/api/basket";
+    }
 }

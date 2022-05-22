@@ -89,12 +89,13 @@
             </#list>
             </tbody>
         </table>
-<#--        <form action="/api/basket/empty" method="post" class="form_basket">-->
-<#--            <#if _csrf??>-->
-<#--                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>-->
-<#--            </#if>-->
-<#--            <button class="btn btn-outline-info">Delete products</button>-->
-<#--        </form>-->
+        <form action="/api/basket/empty" method="post" class="form_basket">
+            <#if _csrf??>
+                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+            </#if>
+            <input name="username" value="${(user.email)!''}" hidden>
+            <button class="btn btn-outline-info">Delete products</button>
+        </form>
 
     <#else>
         <h1 style="text-align: center">Basket is empty!!!</h1>
