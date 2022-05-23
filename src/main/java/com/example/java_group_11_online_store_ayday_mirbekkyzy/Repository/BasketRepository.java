@@ -8,8 +8,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.Optional;
 
 public interface BasketRepository extends PagingAndSortingRepository<Basket, Integer> {
-    Optional<Basket> deleteAllByCustomerEmail(String email);
-
+    void deleteAllByCustomerEmail(String email);
+    Optional<Basket> findBasketByIdAndCustomerEmail(Integer id,String email);
     Page<Basket> findAllByCustomerEmail(String useremail, Pageable pageable);
 
 }

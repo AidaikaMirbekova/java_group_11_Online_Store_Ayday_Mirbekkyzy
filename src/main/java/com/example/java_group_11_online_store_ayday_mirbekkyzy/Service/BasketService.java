@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -42,5 +40,15 @@ public class BasketService {
     public Page<BasketDTO> getUserBasket(String useremail, Pageable pageable){
         var basket = basketRepository.findAllByCustomerEmail(useremail,pageable);
         return basket.map(BasketDTO::from);
+    }
+
+    public BasketDTO changeQuantityBasket(Integer idBasket,String useremail,Integer quantity){
+        var basket = basketRepository.findBasketByIdAndCustomerEmail(idBasket,useremail).get();
+        var product = productsRepository.findById(basket.getId()).get().getPrice();
+        basket.setQuantity(quantity);
+        var count = basket.getQuantity();
+        basket.setPrice(product*count);
+        basketRepository.save(basket);
+        return BasketDTO.from(basket);
     }
 }

@@ -80,12 +80,22 @@
 
             <#list userBasket as product>
                 <tr>
+
                     <td>${product.products_id.name}</td>
                     <td>${product.products_id.description}</td>
-                    <td><input type="number" value="${product.quantity}"></td>
+<#--CHANGE QUANTITY IN BASKET-->
+                    <form action="/api/basket/changeQuantity" method="post" class="form_change_quantity">
+                        <#if _csrf??>
+                            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                        </#if>
+                        <input name="username" value="${(user.email)!''}" hidden>
+                        <input name="id" value="${product.id}" hidden>
+                        <td>${product.quantity}  <input type="text" style="width: 50px" name="quantity" value="${quantity!''}">
+                        <button class="change" hidden></button></td>
+                    </form>
+
                     <td>${product.price}</td>
                 </tr>
-
             </#list>
             </tbody>
         </table>

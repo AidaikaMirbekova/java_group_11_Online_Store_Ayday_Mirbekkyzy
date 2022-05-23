@@ -14,11 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -104,6 +100,15 @@ public class BasketController {
         var user = userService.login(principal.getName());
         basketService.deleteBasket(user.getEmail());
         model.addAttribute("user", user);
+        return "redirect:/api/basket";
+    }
+
+    @PostMapping("/api/basket/changeQuantity")
+    public String changeQuantityBasket(@RequestParam Integer id, Principal principal, Model model, Integer quantity) {
+        var user = userService.login(principal.getName());
+        var baskets= basketService.changeQuantityBasket(id,user.getEmail(),quantity);
+        model.addAttribute("user", user);
+        model.addAttribute("quantity", quantity);
         return "redirect:/api/basket";
     }
 }
