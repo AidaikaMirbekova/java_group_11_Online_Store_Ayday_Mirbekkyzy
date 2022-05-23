@@ -14,6 +14,6 @@ public interface ProductsRepository extends PagingAndSortingRepository<Products,
     @Query("SELECT p FROM Products p WHERE CONCAT(p.name, ' ', p.description, ' ', p.price) LIKE %?1%")
     Page<Products> search(String keyword, Pageable pageable);
 
-    Page<Products> findProductsByPriceGreaterThanAndPriceIsLessThan(Float less, Float more, Pageable pageable);
+    Page<Products> findProductsByPriceGreaterThanAndPriceIsLessThan(Integer less, Integer more, Pageable pageable);
 
 }

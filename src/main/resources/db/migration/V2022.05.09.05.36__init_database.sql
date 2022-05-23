@@ -19,7 +19,7 @@ create table `products`
     `image` varchar(100),
     `quantity` int(10),
     `description` varchar(500),
-    `price` float (10) ,
+    `price` int (10) ,
     primary key (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

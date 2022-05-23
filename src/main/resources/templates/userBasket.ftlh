@@ -90,7 +90,7 @@
                         </#if>
                         <input name="username" value="${(user.email)!''}" hidden>
                         <input name="id" value="${product.id}" hidden>
-                        <td>${product.quantity}  <input type="text" style="width: 50px" name="quantity" value="${quantity!''}">
+                        <td>${product.quantity}  <input type="number" style="width: 50px" name="quantity" value="${quantity!''}">
                         <button class="change" hidden></button></td>
                     </form>
 

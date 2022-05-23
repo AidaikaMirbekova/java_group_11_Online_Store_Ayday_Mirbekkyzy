@@ -34,6 +34,6 @@ public class Basket {
     @NotNull
     @NotEmpty
     @Positive
-    private Float price;
+    private Integer price;
 
 }

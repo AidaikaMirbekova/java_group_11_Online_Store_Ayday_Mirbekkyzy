@@ -31,7 +31,7 @@ public class Products {
     private String description;
 
     @Positive
-    private Float price;
+    private Integer price;
 
 }
 

@@ -44,10 +44,9 @@ public class BasketService {
 
     public BasketDTO changeQuantityBasket(Integer idBasket,String useremail,Integer quantity){
         var basket = basketRepository.findBasketByIdAndCustomerEmail(idBasket,useremail).get();
-        var product = productsRepository.findById(basket.getId()).get().getPrice();
+        var product = productsRepository.findById(basket.getProduct().getId()).get().getPrice();
         basket.setQuantity(quantity);
-        var count = basket.getQuantity();
-        basket.setPrice(product*count);
+        basket.setPrice(product*basket.getQuantity());
         basketRepository.save(basket);
         return BasketDTO.from(basket);
     }

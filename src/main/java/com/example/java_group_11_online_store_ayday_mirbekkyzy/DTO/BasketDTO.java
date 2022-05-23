@@ -25,6 +25,6 @@ public class BasketDTO {
     private Integer id;
     private Products products_id;
     private User customers_id;
-    private Float price;
+    private Integer price;
     private Integer quantity;
 }
