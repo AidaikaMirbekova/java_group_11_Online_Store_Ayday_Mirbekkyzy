@@ -1,8 +1,11 @@
 package com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO;
 
+import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Data
 @Builder(access = AccessLevel.PRIVATE)
@@ -11,8 +14,22 @@ import java.time.LocalDateTime;
 public class OrdersDTO {
 
     private Integer id;
-    private Integer customer_id;
-    private Integer product_id;
+    private User customer_id;
+    private Products product_id;
     private Integer quantity;
+    private Float price;
+    private Status status;
     private LocalDateTime date;
+
+    public static OrdersDTO from(Orders orders){
+        return builder()
+                .id(orders.getId())
+                .customer_id(orders.getCustomer())
+                .product_id(orders.getProduct())
+                .quantity(orders.getQuantity())
+                .price(orders.getPrice())
+                .status(orders.getStatus())
+                .date(orders.getDate())
+                .build();
+    }
 }
