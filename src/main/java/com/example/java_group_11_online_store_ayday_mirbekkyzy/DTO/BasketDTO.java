@@ -11,7 +11,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class BasketDTO {
 
-    public static BasketDTO from(Basket basket){
+    private Integer id;
+    private Products products_id;
+    private User customers_id;
+    private Float price;
+    private Integer quantity;
+
+    public static BasketDTO from(Basket basket) {
         return builder()
                 .id(basket.getId())
                 .products_id(basket.getProduct())
@@ -22,9 +28,5 @@ public class BasketDTO {
     }
 
 
-    private Integer id;
-    private Products products_id;
-    private User customers_id;
-    private Integer price;
-    private Integer quantity;
+
 }

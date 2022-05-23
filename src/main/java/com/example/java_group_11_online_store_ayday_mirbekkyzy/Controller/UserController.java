@@ -2,6 +2,7 @@ package com.example.java_group_11_online_store_ayday_mirbekkyzy.Controller;
 
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO.UserRegisterForm;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +19,9 @@ import static java.util.stream.Collectors.toList;
 
 @Controller
 @RequestMapping
+@RequiredArgsConstructor
 public class UserController {
     public final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
 
     @GetMapping("/register")
@@ -37,9 +35,9 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@Valid UserRegisterForm form, BindingResult validResult, RedirectAttributes attributes) {
-        attributes.addFlashAttribute("user",form);
-        if (validResult.hasFieldErrors()){
-            attributes.addFlashAttribute("errors",validResult.getFieldErrors());
+        attributes.addFlashAttribute("user", form);
+        if (validResult.hasFieldErrors()) {
+            attributes.addFlashAttribute("errors", validResult.getFieldErrors());
             return "redirect:/register";
         }
         userService.register(form);

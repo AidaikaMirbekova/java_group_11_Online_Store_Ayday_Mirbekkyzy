@@ -100,21 +100,6 @@
 
 <#--footer-->
 <footer>
-    <div class="container">
-        <#if pages??>
-            <#if pages.hasPrevious()>
-                <a href="/?page=${pages.pageNumber-1}&size=4" style="float: left" tabindex="0">Previous page</a>
-            <#else>
-                <span id="loadPrev" hidden>First page</span>
-            </#if>
-
-            <#if pages.pageNumber=lastPage>
-                <span id="loadPrev"hidden style="float: right">Last page</span>
-            <#else>
-                <a href="/?page=${pages.pageNumber+1}&size=4" style="float: right" tabindex="0">Next page</a>
-            </#if>
-        </#if>
-    </div>
 </footer>
 <script src="/js/script.js"></script>
 </body>

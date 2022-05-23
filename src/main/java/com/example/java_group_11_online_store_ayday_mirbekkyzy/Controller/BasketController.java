@@ -1,8 +1,7 @@
 package com.example.java_group_11_online_store_ayday_mirbekkyzy.Controller;
 
-import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Basket;
+import com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO.BasketDTO;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Products;
-import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.BasketRepository;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.ProductsRepository;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Service.BasketService;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Service.UserService;
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -31,21 +29,13 @@ public class BasketController {
     private final UserService userService;
     private final ProductsRepository productRepository;
 
-    BasketRepository basketRepository;
-
-
     @GetMapping("/api/basket")
     public String basket(Model model, @SessionAttribute(name = Constants.BASKET_ID, required = false) List<Products> basket, Principal principal,
-                         @PageableDefault(sort = "id", direction = Sort.Direction.DESC, value = 30) Pageable page) {
+                         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable page) {
         var user = userService.login(principal.getName());
         var userBasket = basketService.getUserBasket(user.getEmail(), page);
         if (!userBasket.isEmpty()) {
-            var count = userBasket.getTotalPages() - 1;
-            var number = userBasket.getNumber();
-            model.addAttribute("number", number);
             model.addAttribute("userBasket", userBasket.getContent());
-            model.addAttribute("pages", userBasket.getPageable());
-            model.addAttribute("lastPage", count);
             return "userBasket";
         } else if (userBasket.isEmpty() && !basket.isEmpty()) {
             model.addAttribute("baskets", basket);
@@ -55,23 +45,8 @@ public class BasketController {
     }
 
 
-//@PostMapping("/api/basket")
-//public String basketPage(@Valid Basket basket,
-//        BindingResult validationResult,
-//        RedirectAttributes attributes,Principal principal){
-//
-//        if(validationResult.hasFieldErrors()){
-//        attributes.addFlashAttribute("errors",validationResult.getFieldErrors());
-//        return"redirect:/basket";
-//        }
-//        return"redirect:/api/basket";
-//        }
-
-
-    // метод для добавления в "корзину" через форму
-// демонстрация добавления через объект HttpSession session
     @PostMapping("/api/basket/add")
-    public String addToBasket(@RequestParam Integer id, HttpSession session, Model model, @Valid Basket basket, Principal principal) {
+    public String addToBasket(@RequestParam Integer id, HttpSession session, Model model, @Valid BasketDTO basket, Principal principal) {
         if (session != null) {
             var user = userService.login(principal.getName());
             var product = productRepository.findById(id);
@@ -90,12 +65,12 @@ public class BasketController {
                 ignored.printStackTrace();
             }
         }
-        return "redirect:/api/basket";
+        return "redirect:/";
     }
 
 
     @PostMapping("/api/basket/empty")
-    public String emptyBasket(HttpSession session, Principal principal,Model model) {
+    public String emptyBasket(HttpSession session, Principal principal, Model model) {
         session.removeAttribute(Constants.BASKET_ID);
         var user = userService.login(principal.getName());
         basketService.deleteBasket(user.getEmail());
@@ -106,7 +81,7 @@ public class BasketController {
     @PostMapping("/api/basket/changeQuantity")
     public String changeQuantityBasket(@RequestParam Integer id, Principal principal, Model model, Integer quantity) {
         var user = userService.login(principal.getName());
-        var baskets= basketService.changeQuantityBasket(id,user.getEmail(),quantity);
+        basketService.changeQuantityBasket(id, user.getEmail(), quantity);
         model.addAttribute("user", user);
         model.addAttribute("quantity", quantity);
         return "redirect:/api/basket";

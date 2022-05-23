@@ -78,23 +78,23 @@
 
             <tbody>
 
-            <#list userBasket as product>
+            <#list userBasket as basket>
                 <tr>
 
-                    <td>${product.products_id.name}</td>
-                    <td>${product.products_id.description}</td>
+                    <td>${basket.products_id.name}</td>
+                    <td>${basket.products_id.description}</td>
 <#--CHANGE QUANTITY IN BASKET-->
                     <form action="/api/basket/changeQuantity" method="post" class="form_change_quantity">
                         <#if _csrf??>
                             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
                         </#if>
                         <input name="username" value="${(user.email)!''}" hidden>
-                        <input name="id" value="${product.id}" hidden>
-                        <td>${product.quantity}  <input type="number" style="width: 50px" name="quantity" value="${quantity!''}">
+                        <input name="id" value="${basket.id}" hidden>
+                        <td>${basket.quantity}  <input type="number" style="width: 50px" name="quantity" value="${quantity!''}">
                         <button class="change" hidden></button></td>
                     </form>
 
-                    <td>${product.price}</td>
+                    <td>${basket.price}</td>
                 </tr>
             </#list>
             </tbody>
@@ -105,6 +105,14 @@
             </#if>
             <input name="username" value="${(user.email)!''}" hidden>
             <button class="btn btn-outline-info">Delete products</button>
+        </form>
+<#--Order -->
+        <form action="/api/addOrder" method="post" class="form_order">
+            <#if _csrf??>
+                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+            </#if>
+            <input name="username" value="${(user.email)!''}" hidden>
+            <button class="btn btn-outline-info">Order</button>
         </form>
 
     <#else>
@@ -117,7 +125,7 @@
     <div class="container">
         <#if pages??>
             <#if pages.hasPrevious()>
-                <a href="/?page=${pages.pageNumber-1}&size=4" style="float: left" tabindex="0">Previous page</a>
+                <a href="/api/basket?page=${pages.pageNumber-1}&size=11" style="float: left" tabindex="0">Previous page</a>
             <#else>
                 <span id="loadPrev" hidden>First page</span>
             </#if>
@@ -125,7 +133,7 @@
             <#if pages.pageNumber=lastPage>
                 <span id="loadPrev"hidden style="float: right">Last page</span>
             <#else>
-                <a href="/?page=${pages.pageNumber+1}&size=4" style="float: right" tabindex="0">Next page</a>
+                <a href="/api/basket?page=${pages.pageNumber+1}&size=11" style="float: right" tabindex="0">Next page</a>
             </#if>
         </#if>
     </div>

@@ -9,6 +9,12 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class UserDTO {
 
+    private Integer id;
+    private String name;
+    private String login;
+    private String email;
+    private String password;
+    private String role;
 
     public static UserDTO from(User user) {
         return builder()
@@ -19,11 +25,4 @@ public class UserDTO {
                 .role(user.getRole().toString())
                 .build();
     }
-
-    private Integer id;
-    private String name;
-    private String login;
-    private String email;
-    private String password;
-    private String role;
 }

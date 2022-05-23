@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,6 +17,7 @@ import javax.sql.DataSource;
 @AllArgsConstructor
 public class SecurityCongiguration extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
+
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
@@ -44,19 +44,20 @@ public class SecurityCongiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .permitAll();
     }
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth ) throws Exception {
-            String fetchUsersQuery = "select email, password, enabled"
-                    + " from user_table"
-                    + " where email = ?";
 
-            String fetchRolesQuery = "select email, role"
-                    + " from user_table"
-                    + " where email = ?";
-           auth.jdbcAuthentication()
-                   .dataSource(dataSource)
-                   .usersByUsernameQuery(fetchUsersQuery)
-                   .authoritiesByUsernameQuery(fetchRolesQuery);
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        String fetchUsersQuery = "select email, password, enabled"
+                + " from user_table"
+                + " where email = ?";
+
+        String fetchRolesQuery = "select email, role"
+                + " from user_table"
+                + " where email = ?";
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery(fetchUsersQuery)
+                .authoritiesByUsernameQuery(fetchRolesQuery);
 
     }
 }
