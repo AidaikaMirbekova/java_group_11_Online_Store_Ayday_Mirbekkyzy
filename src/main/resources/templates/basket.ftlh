@@ -85,7 +85,7 @@
                 <#if _csrf??>
                     <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
-                <button class="btn btn-outline-info">Delete products</button>
+                <button class="btn btn-outline-info">Clear basket</button>
             </form>
         <#else>
             <h1 style="text-align: center">Basket is empty!!!</h1>

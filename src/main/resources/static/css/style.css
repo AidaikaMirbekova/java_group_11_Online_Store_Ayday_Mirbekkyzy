@@ -72,12 +72,17 @@ footer {
 }
 
 /*basket*/
-.form_basket {
-    display: flex;
-    justify-content: center;
-}
-
 #add_basket {
     text-align: center;
+}
+
+.order_button{
+    float: left;
+    margin-left: 5rem;
+}
+
+.delete_baskets_all{
+    float: right;
+    margin-right: 5rem;
 }
 

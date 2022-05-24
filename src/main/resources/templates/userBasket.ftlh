@@ -119,7 +119,7 @@
                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
             </#if>
             <input name="username" value="${(user.email)!''}" hidden>
-            <button class="btn btn-outline-info">Delete products</button>
+            <button class="btn btn-outline-info delete_baskets_all">Clear basket</button>
         </form>
     <#--Order -->
         <form action="/api/addOrder" method="post" class="form_order">
@@ -127,7 +127,7 @@
                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
             </#if>
             <input name="username" value="${(user.email)!''}" hidden>
-            <button class="btn btn-outline-info">Order</button>
+            <button class="btn btn-outline-info order_button">Order</button>
         </form>
 
     <#else>

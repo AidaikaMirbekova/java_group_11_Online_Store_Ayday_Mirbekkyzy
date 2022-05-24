@@ -2,7 +2,6 @@ package com.example.java_group_11_online_store_ayday_mirbekkyzy.Controller;
 
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO.BasketDTO;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Products;
-import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.BasketRepository;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.ProductsRepository;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Service.BasketService;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Service.UserService;
@@ -29,7 +28,6 @@ public class BasketController {
     private final BasketService basketService;
     private final UserService userService;
     private final ProductsRepository productRepository;
-    private final BasketRepository basketRepository;
 
     @GetMapping("/api/basket")
     public String basket(Model model, @SessionAttribute(name = Constants.BASKET_ID, required = false) List<Products> basket, Principal principal,
@@ -84,6 +82,8 @@ public class BasketController {
 
     @PostMapping("/api/basket/delete")
     public String deleteOneBasket(@RequestParam Integer id, Principal principal, Model model) {
+        
+
         var user = userService.login(principal.getName());
         model.addAttribute("user", user);
         basketService.deleteOneBasket(id,user.getEmail());
