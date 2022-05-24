@@ -26,12 +26,14 @@ public class OrdersService {
     private final OrdersRepository ordersRepository;
     private final BasketRepository basketRepository;
     private final UserRepository userRepository;
+    private final ProductsRepository productsRepository;
 
 
     public void checkOrder(String useremail,OrdersDTO orders) {
         var user = userRepository.findUserByEmail(useremail).get();
         var baskets = basketRepository.findBasketsByCustomerEmail(useremail);
         for (int i = 0; i < baskets.size(); i++) {
+            var basketQuantity = baskets.get(i).getQuantity();
             var order = Orders.builder()
                     .id(orders.getId())
                     .product(baskets.get(i).getProduct())
@@ -42,6 +44,12 @@ public class OrdersService {
                     .date(LocalDateTime.now())
                     .build();
             ordersRepository.save(order);
+            var products  = productsRepository.findAllById(baskets.get(i).getProduct().getId());
+            for (int j = 0; j < products.size(); j++) {
+                var quantity = products.get(j).getQuantity();
+                products.get(j).setQuantity(quantity-basketQuantity);
+                productsRepository.save(products.get(j));
+            }
         }
         basketRepository.deleteAll(baskets);
     }
