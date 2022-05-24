@@ -22,6 +22,7 @@ public class ProductsController {
     @GetMapping
     public String showProducts(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC, value = 4) Pageable page) {
         var products = productsService.getAllProducts(page);
+
         model.addAttribute("products", products.getContent());
         model.addAttribute("pages", products.getPageable());
         model.addAttribute("lastPages", products.hasNext());
@@ -31,6 +32,7 @@ public class ProductsController {
     @RequestMapping("/search")
     public String searchProducts(Model model, @Param("keyword") String keyword, @PageableDefault(sort = "id", direction = Sort.Direction.DESC, value = 4) Pageable page) {
         Page<ProductsDTO> products = productsService.searchProducts(keyword, page);
+
         model.addAttribute("products", products.getContent());
         model.addAttribute("keyword", keyword);
         model.addAttribute("pages", products.getPageable());
@@ -41,12 +43,13 @@ public class ProductsController {
     @RequestMapping("/priceSearch")
     public String searchByPrice(Model model, @Param("more") Float more, @Param("less") Float less, @PageableDefault(sort = "id", direction = Sort.Direction.DESC, value = 4) Pageable page) {
         Page<ProductsDTO> products = productsService.priceSearch(more, less, page);
-        var count = products.getTotalPages() - 1;
+
         model.addAttribute("products", products.getContent());
         model.addAttribute("more", more);
         model.addAttribute("less", less);
         model.addAttribute("pages", products.getPageable());
         model.addAttribute("lastPages", products.hasNext());
+
         return "searchProducts";
     }
 }

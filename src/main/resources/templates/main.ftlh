@@ -84,7 +84,7 @@
             </#if>
             <div class="form-row">
                 <div class="col-5">
-                    <input type="text" name="more" id="more" class="form-control" placeholder="0" value="0">
+                    <input type="text" name="more" id="more" class="form-control" placeholder="0" value="0" required>
                 </div>
                 <div class="col-5">
                     <input type="text" name="less" id="less" class="form-control" placeholder="0" required>

@@ -82,6 +82,8 @@ public class BasketController {
 
     @PostMapping("/api/basket/delete")
     public String deleteOneBasket(@RequestParam Integer id, Principal principal, Model model) {
+
+
         var user = userService.login(principal.getName());
         model.addAttribute("user", user);
         basketService.deleteOneBasket(id,user.getEmail());
