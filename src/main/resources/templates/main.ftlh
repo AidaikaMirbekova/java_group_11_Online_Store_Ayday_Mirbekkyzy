@@ -123,7 +123,7 @@
                                     <input type="number" inputmode="decimal" name="price" value="${product.price}"
                                            hidden>
                                     <input name="username" value="${(user.email)!''}" hidden>
-                                    <button class="btn btn-light" id="add_busket" type="submit">Добавить в корзину
+                                    <button class="btn btn-light" id="add_basket" type="submit">Basket
                                     </button>
                                 </div>
                             </form>

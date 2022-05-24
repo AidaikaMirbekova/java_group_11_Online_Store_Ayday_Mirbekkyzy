@@ -14,15 +14,9 @@
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/style.css">
-    <#--JavaScript link-->
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Store.kg</title>
 </head>
 <body>
@@ -79,6 +73,7 @@
                 <th scope="col">Description</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
+                <th scope="col">Delete</th>
             </tr>
             </thead>
 
@@ -104,6 +99,17 @@
                     </form>
 
                     <td>${basket.price}</td>
+<#--                Delete one basket-->
+                <form action="/api/basket/delete" method="post" id="basket_form_delete_one">
+                    <#if _csrf??>
+                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                               value="${(_csrf.token)!'--no-token--'}"/>
+                    </#if>
+                        <input name="id" value="${basket.id}" hidden>
+                        <input name="username" value="${(user.email)!''}" hidden>
+                    <td><button class="btn btn-light" id="delete_one_basket" type="submit"><i class="bi bi-x-lg"></i></button></td>
+                </form>
+
                 </tr>
             </#list>
             </tbody>

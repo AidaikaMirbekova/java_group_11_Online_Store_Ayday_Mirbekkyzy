@@ -12,6 +12,8 @@ public interface BasketRepository extends PagingAndSortingRepository<Basket, Int
 
     void deleteBasketByCustomerEmail(String email);
 
+    void deleteBasketByIdAndCustomerEmail(Integer id,String email);
+
     Optional<Basket> findBasketByIdAndCustomerEmail(Integer id, String email);
 
     Page<Basket> findBasketsByCustomerEmail(String useremail, Pageable pageable);

@@ -42,6 +42,10 @@ public class BasketService {
         return basket.map(BasketDTO::from);
     }
 
+    public void deleteOneBasket(Integer idBasket,String useremail){
+        basketRepository.deleteBasketByIdAndCustomerEmail(idBasket,useremail);
+    }
+
     public BasketDTO changeQuantityBasket(Integer idBasket, String useremail, Integer quantity) {
         var basket = basketRepository.findBasketByIdAndCustomerEmail(idBasket, useremail).get();
         var product = productsRepository.findById(basket.getProduct().getId()).get().getPrice();
