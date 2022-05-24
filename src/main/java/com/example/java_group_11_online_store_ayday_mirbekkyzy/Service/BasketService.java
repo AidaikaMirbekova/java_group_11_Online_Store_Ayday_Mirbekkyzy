@@ -34,11 +34,11 @@ public class BasketService {
     }
 
     public void deleteBasket(String useremail) {
-        basketRepository.deleteAllByCustomerEmail(useremail);
+        basketRepository.deleteBasketByCustomerEmail(useremail);
     }
 
     public Page<BasketDTO> getUserBasket(String useremail, Pageable pageable) {
-        var basket = basketRepository.findAllByCustomerEmail(useremail, pageable);
+        var basket = basketRepository.findBasketsByCustomerEmail(useremail, pageable);
         return basket.map(BasketDTO::from);
     }
 

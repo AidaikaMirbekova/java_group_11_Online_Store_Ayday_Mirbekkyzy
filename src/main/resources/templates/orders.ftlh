@@ -36,16 +36,19 @@
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
-                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
-            </#if>
-            <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
-            <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
+                </#if>
+                <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
+                       placeholder="Search" aria-label="Search">
+                <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
             </form>
         </nav>
         <nav class="main-nav">
             <div class="user_info" style="color: black"></div>
             <nav class="basket">
-                <button type="button" class="basket_button"><a href="/api/basket"><i class="bi bi-cart2 h3 mx-2"></i></a>
+                <button type="button" class="basket_button"><a href="/api/basket"><i
+                                class="bi bi-cart2 h3 mx-2"></i></a>
                 </button>
             </nav>
             <nav class="sign_button">
@@ -58,9 +61,10 @@
             </nav>
             <form class="flex box-128" action="/logout" method="post">
                 <#if _csrf??>
-                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
-            </#if>
-            <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
+                </#if>
+                <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
             </form>
         </nav>
     </div>
@@ -70,55 +74,56 @@
 <div class="container">
     <h5 style="text-align: center;margin-top: 5rem">Your orders</h5>
     <#if ordersList??>
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Products</th>
-            <th scope="col">Description</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Date</th>
-            <th scope="col">Status</th>
-        </tr>
-        </thead>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Products</th>
+                <th scope="col">Description</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
 
-        <tbody>
+            <tbody>
 
-        <#list ordersList as order>
-        <tr>
-            <td>${order.product_id.name}</td>
-            <td>${order.product_id.description}</td>
-            <td>${order.quantity}</td>
-            <td>${order.price}</td>
-            <td>${order.date}</td>
-            <td>${order.status}</td>
-            <td></td>
-        </tr>
-        </#list>
-        </tbody>
-    </table>
+            <#list ordersList as order>
+                <tr>
+                    <td>${order.product_id.name}</td>
+                    <td>${order.product_id.description}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.price}</td>
+                    <td>${order.date}</td>
+                    <td>${order.status}</td>
+                </tr>
+            </#list>
+            </tbody>
+        </table>
     <#else>
-    <h1 style="text-align: center">Orders is empty!!!</h1>
-</#if>
+        <h1 style="text-align: center">Orders is empty!!!</h1>
+    </#if>
 </div>
 
 <#--footer-->
 <footer>
     <div class="container">
         <#if pages??>
-        <#if pages.hasPrevious()>
-        <a href="/api/showOrders?page=${pages.pageNumber-1}&size=11" style="float: left" tabindex="0">Previous page</a>
-        <#else>
-        <span id="loadPrev" hidden>First page</span>
-    </#if>
+            <#if pages.hasPrevious()>
+                <a href="/api/showOrders?page=${pages.pageNumber-1}&size=10" style="float: left" tabindex="0">Previous
+                    page</a>
+            <#else>
+                <span id="loadPrev" hidden>First page</span>
+            </#if>
 
-    <#if pages.pageNumber=lastPage>
-    <span id="loadPrev"hidden style="float: right">Last page</span>
-    <#else>
-    <a href="/api/showOrders?page=${pages.pageNumber+1}&size=11" style="float: right" tabindex="0">Next page</a>
-</#if>
-</#if>
-</div>
+            <#if lastPages>
+                <a href="/api/showOrders?page=${pages.pageNumber+1}&size=10" style="float: right" tabindex="0">Next
+                    page</a>
+            <#else>
+                <span id="loadPrev" hidden style="float: right">Last page</span>
+            </#if>
+        </#if>
+    </div>
 </footer>
 </body>
 </html>

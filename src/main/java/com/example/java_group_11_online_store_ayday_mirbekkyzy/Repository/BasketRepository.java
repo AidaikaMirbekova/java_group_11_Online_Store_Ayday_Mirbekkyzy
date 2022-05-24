@@ -10,11 +10,11 @@ import java.util.Optional;
 
 public interface BasketRepository extends PagingAndSortingRepository<Basket, Integer> {
 
-    void deleteAllByCustomerEmail(String email);
+    void deleteBasketByCustomerEmail(String email);
 
     Optional<Basket> findBasketByIdAndCustomerEmail(Integer id, String email);
 
-    Page<Basket> findAllByCustomerEmail(String useremail, Pageable pageable);
+    Page<Basket> findBasketsByCustomerEmail(String useremail, Pageable pageable);
 
     List<Basket> findBasketsByCustomerEmail(String email);
 

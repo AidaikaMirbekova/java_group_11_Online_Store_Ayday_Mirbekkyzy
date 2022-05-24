@@ -34,6 +34,8 @@ public class BasketController {
                          @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable page) {
         var user = userService.login(principal.getName());
         var userBasket = basketService.getUserBasket(user.getEmail(), page);
+        model.addAttribute("pages", userBasket.getPageable());
+        model.addAttribute("lastPages", userBasket.hasNext());
         if (!userBasket.isEmpty()) {
             model.addAttribute("userBasket", userBasket.getContent());
             return "userBasket";
@@ -77,6 +79,15 @@ public class BasketController {
         model.addAttribute("user", user);
         return "redirect:/api/basket";
     }
+//
+//    @PostMapping("/api/basket/delete")
+//    public String emptyBasket(HttpSession session, Principal principal, Model model) {
+//        session.removeAttribute(Constants.BASKET_ID);
+//        var user = userService.login(principal.getName());
+//        basketService.deleteBasket(user.getEmail());
+//        model.addAttribute("user", user);
+//        return "redirect:/api/basket";
+//    }
 
     @PostMapping("/api/basket/changeQuantity")
     public String changeQuantityBasket(@RequestParam Integer id, Principal principal, Model model, Integer quantity) {

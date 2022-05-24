@@ -27,55 +27,62 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Online Store</a>
-            <nav class="profile">
-                <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
+        <nav class="profile">
+            <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
+        </nav>
+        <nav class="orders">
+            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
+        </nav>
+        <nav class="search-nav">
+            <form action="/search" class="d-flex search_products">
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
+                </#if>
+                <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
+                       placeholder="Search" aria-label="Search">
+                <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
+            </form>
+        </nav>
+        <nav class="main-nav">
+            <div class="user_info" style="color: black"></div>
+            <nav class="basket">
+                <button type="button" class="basket_button"><a href="/api/basket"><i
+                                class="bi bi-cart2 h3 mx-2"></i></a>
+                </button>
             </nav>
-            <nav class="search-nav">
-                <form action="/search" class="d-flex search_products">
-                    <#if _csrf??>
-                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
-                    </#if>
-                    <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
-                    <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
-                </form>
+            <nav class="sign_button">
+                <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
+                </button>
             </nav>
-            <nav class="main-nav">
-                <div class="user_info" style="color: black"></div>
-                <nav class="basket">
-                    <button type="button" class="basket_button"><a href="/api/basket"><i class="bi bi-cart2 h3 mx-2"></i></a>
-                    </button>
-                </nav>
-                <nav class="sign_button">
-                    <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
-                    </button>
-                </nav>
-                <nav>
-                    <button type="button" class="btn btn-outline-warning"><a href="/login">Sign In</a>
-                    </button>
-                </nav>
-                <form class="flex box-128" action="/logout" method="post">
-                    <#if _csrf??>
-                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
-                    </#if>
-                    <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
-                </form>
+            <nav>
+                <button type="button" class="btn btn-outline-warning"><a href="/login">Sign In</a>
+                </button>
+            </nav>
+            <form class="flex box-128" action="/logout" method="post">
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
+                </#if>
+                <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
+            </form>
 
-            </nav>
+        </nav>
     </div>
 </nav>
 
 <#--Content-->
 <div class="container" style="text-align: center">
     <#if user??>
-    <div class="card" style="width: 18rem;">
-        <img src="/images/anonim.jpg" class="card-img-top" alt="#">
-        <div class="card-body card_profile">
-            <p>Name: ${user.name}</p>
-            <p>Login: ${user.login}</p>
-            <p>Email: ${user.email}</p>
-            <p>Role: ${user.role}</p>
+        <div class="card" style="width: 18rem;">
+            <img src="/images/anonim.jpg" class="card-img-top" alt="#">
+            <div class="card-body card_profile">
+                <p>Name: ${user.name}</p>
+                <p>Login: ${user.login}</p>
+                <p>Email: ${user.email}</p>
+                <p>Role: ${user.role}</p>
+            </div>
         </div>
-    </div>
     <#else>
         <h1>Пользователь не найден!</h1>
     </#if>

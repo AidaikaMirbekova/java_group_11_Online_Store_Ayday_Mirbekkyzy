@@ -33,6 +33,9 @@
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
         </nav>
+        <nav class="orders">
+            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
+        </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
@@ -47,7 +50,8 @@
         <nav class="main-nav">
             <div class="user_info" style="color: black"></div>
             <nav class="basket">
-                <button type="button" class="basket_button"><a href="/api/basket"><i class="bi bi-cart2 h3 mx-2"></i></a>
+                <button type="button" class="basket_button"><a href="/api/basket"><i
+                                class="bi bi-cart2 h3 mx-2"></i></a>
                 </button>
             </nav>
             <nav>

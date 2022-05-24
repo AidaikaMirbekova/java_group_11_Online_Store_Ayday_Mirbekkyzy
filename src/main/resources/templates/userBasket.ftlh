@@ -33,12 +33,17 @@
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
+        <nav class="orders">
+            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
+        </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
-                <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
+                       placeholder="Search" aria-label="Search">
                 <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
             </form>
         </nav>
@@ -54,7 +59,8 @@
             </nav>
             <form class="flex box-128" action="/logout" method="post">
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
                 <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
             </form>
@@ -83,15 +89,18 @@
 
                     <td>${basket.products_id.name}</td>
                     <td>${basket.products_id.description}</td>
-<#--CHANGE QUANTITY IN BASKET-->
+                    <#--CHANGE QUANTITY IN BASKET-->
                     <form action="/api/basket/changeQuantity" method="post" class="form_change_quantity">
                         <#if _csrf??>
-                            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                   value="${(_csrf.token)!'--no-token--'}"/>
                         </#if>
                         <input name="username" value="${(user.email)!''}" hidden>
                         <input name="id" value="${basket.id}" hidden>
-                        <td>${basket.quantity}  <input type="number" style="width: 50px" name="quantity" value="${quantity!''}">
-                        <button class="change" hidden></button></td>
+                        <td>${basket.quantity} <input type="number" style="width: 50px" name="quantity"
+                                                      value="${quantity!''}">
+                            <button class="change" hidden></button>
+                        </td>
                     </form>
 
                     <td>${basket.price}</td>
@@ -106,7 +115,7 @@
             <input name="username" value="${(user.email)!''}" hidden>
             <button class="btn btn-outline-info">Delete products</button>
         </form>
-<#--Order -->
+    <#--Order -->
         <form action="/api/addOrder" method="post" class="form_order">
             <#if _csrf??>
                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
@@ -125,15 +134,16 @@
     <div class="container">
         <#if pages??>
             <#if pages.hasPrevious()>
-                <a href="/api/basket?page=${pages.pageNumber-1}&size=11" style="float: left" tabindex="0">Previous page</a>
+                <a href="/api/basket?page=${pages.pageNumber-1}&size=10" style="float: left" tabindex="0">Previous
+                    page</a>
             <#else>
                 <span id="loadPrev" hidden>First page</span>
             </#if>
 
-            <#if pages.pageNumber=lastPage>
-                <span id="loadPrev"hidden style="float: right">Last page</span>
+            <#if lastPages>
+                <a href="/api/basket?page=${pages.pageNumber+1}&size=10" style="float: right" tabindex="0">Next page</a>
             <#else>
-                <a href="/api/basket?page=${pages.pageNumber+1}&size=11" style="float: right" tabindex="0">Next page</a>
+                <span id="loadPrev" hidden style="float: right">Last page</span>
             </#if>
         </#if>
     </div>

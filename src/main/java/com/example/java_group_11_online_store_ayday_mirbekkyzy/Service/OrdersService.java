@@ -6,6 +6,7 @@ import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Orders;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Status;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.BasketRepository;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.OrdersRepository;
+import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.ProductsRepository;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -46,7 +47,8 @@ public class OrdersService {
     }
 
     public Page<OrdersDTO> showOrders(String useremail, Pageable pageable) {
-        var orders = ordersRepository.getAllByCustomerEmail(useremail, pageable);
+        var orders = ordersRepository.getOrdersByCustomerEmail(useremail, pageable);
         return orders.map(OrdersDTO::from);
     }
+
 }

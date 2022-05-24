@@ -33,6 +33,9 @@
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
+        <nav class="orders">
+            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
+        </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
@@ -100,6 +103,21 @@
 
 <#--footer-->
 <footer>
+    <div class="container">
+        <#if pages??>
+            <#if pages.hasPrevious()>
+                <a href="/api/basket?page=${pages.pageNumber-1}&size=10" style="float: left" tabindex="0">Previous page</a>
+            <#else>
+                <span id="loadPrev" hidden>First page</span>
+            </#if>
+
+            <#if lastPages>
+                <a href="/api/basket?page=${pages.pageNumber+1}&size=10" style="float: right" tabindex="0">Next page</a>
+            <#else>
+                <span id="loadPrev"hidden style="float: right">Last page</span>
+            </#if>
+        </#if>
+    </div>
 </footer>
 <script src="/js/script.js"></script>
 </body>

@@ -22,21 +22,19 @@ public class ProductsController {
     @GetMapping
     public String showProducts(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC, value = 4) Pageable page) {
         var products = productsService.getAllProducts(page);
-        var count = products.getTotalPages() - 1;
         model.addAttribute("products", products.getContent());
         model.addAttribute("pages", products.getPageable());
-        model.addAttribute("lastPage", count);
+        model.addAttribute("lastPages", products.hasNext());
         return "main";
     }
 
     @RequestMapping("/search")
     public String searchProducts(Model model, @Param("keyword") String keyword, @PageableDefault(sort = "id", direction = Sort.Direction.DESC, value = 4) Pageable page) {
         Page<ProductsDTO> products = productsService.searchProducts(keyword, page);
-        var count = products.getTotalPages() - 1;
         model.addAttribute("products", products.getContent());
         model.addAttribute("keyword", keyword);
         model.addAttribute("pages", products.getPageable());
-        model.addAttribute("lastPage", count);
+        model.addAttribute("lastPages", products.hasNext());
         return "searchProducts";
     }
 
@@ -48,7 +46,7 @@ public class ProductsController {
         model.addAttribute("more", more);
         model.addAttribute("less", less);
         model.addAttribute("pages", products.getPageable());
-        model.addAttribute("lastPage", count);
+        model.addAttribute("lastPages", products.hasNext());
         return "searchProducts";
     }
 }

@@ -34,7 +34,7 @@
             <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="orders">
-            <a class="nav-link active" aria-current="page" href="/api/showOrders">Orders</a>
+            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
         </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
@@ -50,7 +50,8 @@
         <nav class="main-nav">
             <div class="user_info" style="color: black"></div>
             <nav class="basket">
-                <button type="button" class="basket_button"><a href="/api/basket"><i class="bi bi-cart2 h3 mx-2"></i></a>
+                <button type="button" class="basket_button"><a href="/api/basket"><i
+                                class="bi bi-cart2 h3 mx-2"></i></a>
                 </button>
             </nav>
             <nav class="sign_button">
@@ -86,7 +87,7 @@
                     <input type="text" name="more" id="more" class="form-control" placeholder="0" value="0">
                 </div>
                 <div class="col-5">
-                    <input type="text"  name="less" id="less" class="form-control" placeholder="0" required>
+                    <input type="text" name="less" id="less" class="form-control" placeholder="0" required>
                 </div>
                 <button class="btn btn btn-info btn-search_price" type="submit" value="Search">Search</button>
             </div>
@@ -110,7 +111,7 @@
                             </p>
 
 
-                            <#--                        add to basket form-->
+                            <#--                        Add to basket form-->
                             <form action="/api/basket/add" method="post" id="basket-form">
                                 <#if _csrf??>
                                     <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
@@ -134,6 +135,8 @@
         </#list>
     </section>
 </div>
+
+<#--pageable-->
 <footer>
     <div class="container">
         <#if pages??>
@@ -143,10 +146,10 @@
                 <span id="loadPrev" hidden>First page</span>
             </#if>
 
-            <#if pages.pageNumber=lastPage>
-                <span id="loadPrev" hidden style="float: right">Last page</span>
-            <#else>
+            <#if lastPages>
                 <a href="/?page=${pages.pageNumber+1}&size=4" style="float: right" tabindex="0">Next page</a>
+            <#else>
+                <span id="loadPrev" hidden style="float: right">Last page</span>
             </#if>
         </#if>
     </div>
