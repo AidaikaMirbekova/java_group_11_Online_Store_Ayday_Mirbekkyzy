@@ -8,6 +8,7 @@ import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.TokenR
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ public class TokenService {
 
     private final TokenRepository tokenRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
 
     public void createToken(String email) {
         var user = userRepository.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -34,7 +36,7 @@ public class TokenService {
         var tokenOp = tokenRepository.findTokensMakerByUserEmailAndToken(email, tokenValue);
         if(tokenOp.isPresent()){
         var user = userRepository.findUserByEmail(email).orElseThrow(UserNotFoundException::new);
-            user.setPassword(newPassword);
+            user.setPassword(encoder.encode(newPassword));
             userRepository.save(user);
             tokenRepository.delete(tokenOp.get());
         }else {
