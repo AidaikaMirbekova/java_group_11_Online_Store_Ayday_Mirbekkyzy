@@ -28,7 +28,7 @@ public class UserService {
                 .email(form.getEmail())
                 .name(form.getName())
                 .login(form.getLogin())
-                .password(encoder.encode(form.getPassword()))
+                .password(form.getPassword())
                 .role(RolesEnum.USER)
                 .build();
 
@@ -40,5 +40,10 @@ public class UserService {
         var user = userRepository.findUserByEmail(email).orElseThrow(UserNotFoundException::new);
         return UserDTO.from(user);
     }
+
+
+
+
+
 
 }

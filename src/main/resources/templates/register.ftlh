@@ -22,7 +22,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Online Store</a>
         <nav class="profile">
-            <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
+            <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="orders">
             <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>

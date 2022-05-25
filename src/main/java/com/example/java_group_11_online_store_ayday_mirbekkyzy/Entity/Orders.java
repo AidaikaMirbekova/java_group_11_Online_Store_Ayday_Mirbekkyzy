@@ -2,6 +2,8 @@ package com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity;
 
 import lombok.*;
 import org.hibernate.annotations.ManyToAny;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -31,6 +33,7 @@ public class Orders {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Products product;
 
     private Integer quantity;

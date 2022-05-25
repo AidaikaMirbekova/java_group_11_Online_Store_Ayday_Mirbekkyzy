@@ -25,4 +25,5 @@ public class BindExceptionHandler {
         return ResponseEntity.unprocessableEntity()
                 .body(apiFieldErrors);
     }
+
 }

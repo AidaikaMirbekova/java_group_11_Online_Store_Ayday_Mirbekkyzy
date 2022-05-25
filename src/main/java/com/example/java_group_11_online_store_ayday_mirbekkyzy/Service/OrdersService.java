@@ -1,10 +1,8 @@
 package com.example.java_group_11_online_store_ayday_mirbekkyzy.Service;
 
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO.OrdersDTO;
-import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Basket;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Orders;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Status;
-import com.example.java_group_11_online_store_ayday_mirbekkyzy.Exception.UserNotFoundException;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.BasketRepository;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.OrdersRepository;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.ProductsRepository;
@@ -15,11 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Transactional
 @AllArgsConstructor

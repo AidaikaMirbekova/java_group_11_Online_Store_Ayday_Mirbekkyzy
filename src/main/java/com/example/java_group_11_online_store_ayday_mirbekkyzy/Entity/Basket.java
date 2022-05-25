@@ -1,6 +1,8 @@
 package com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -22,6 +24,7 @@ public class Basket {
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "products_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Products product;
 
     @NotEmpty

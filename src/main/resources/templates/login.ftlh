@@ -22,7 +22,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Online Store</a>
         <nav class="profile">
-            <a class="nav-link active" aria-current="page" href="/profile"><i class="bi bi-person-square"></i></a>
+            <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="orders">
             <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
@@ -30,16 +30,19 @@
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
-                <input class="form-control me-2" type="text" name="keyword" id="keyword"  minlength="2" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
+                       placeholder="Search" aria-label="Search">
                 <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
             </form>
         </nav>
         <nav class="main-nav">
             <div class="user_info" style="color: black"></div>
             <nav class="basket">
-                <button type="button" class="basket_button"><a href="/api/basket"><i class="bi bi-cart2 h3 mx-2"></i></a>
+                <button type="button" class="basket_button"><a href="/api/basket"><i
+                                class="bi bi-cart2 h3 mx-2"></i></a>
                 </button>
             </nav>
             <nav>
@@ -48,7 +51,8 @@
             </nav>
             <form class="flex box-128" action="/logout" method="post">
                 <#if _csrf??>
-                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
                 <button class="log_out"><i class="bi bi-door-closed h3 mx-2"></i></button>
             </form>
@@ -58,31 +62,38 @@
 
 <#--Content-->
 <div class="container content_container">
-                <form action="/login" method="post" id="sign_in" class="sign-in-htm">
+    <div>
+    <form action="/login" method="post" id="sign_in" class="sign-in-htm">
 
-                    <div>
-                        <#if error!false >
-                            <p style="color:red">Неверные имя пользователя или пароль !</p>
-                        </#if>
-                    </div>
+        <div>
+            <#if error!false >
+                <p style="color:red">Incorrect username and password!!!</p>
+            </#if>
+        </div>
 
-                    <#if _csrf??>
-                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
-                    </#if>
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="email" name="username" class="form-control" placeholder="Email"  value="${(user.email)!''}" required autofocus>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" placeholder="Password" value="" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary sign">Sign in</button>
-                </form>
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+        </#if>
+        <div class="mb-3 row">
+            <div class="col-sm-10">
+                <input type="email" name="username" class="form-control" placeholder="Email" value="${(user.email)!''}"
+                       required autofocus>
             </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10">
+                <input type="password" name="password" class="form-control" placeholder="Password" value="" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary sign">Sign in</button>
+    </form>
+    <div class="mb-3 row">
+        <div class="col-sm-10">
+        <a href="/createToken">Forgot password?</a>
+        </div>
+    </div>
+    </div>
+</div>
 
-<script src="/js/script.js"></script>
 </body>
 </html>

@@ -1,8 +1,12 @@
 package com.example.java_group_11_online_store_ayday_mirbekkyzy.Controller;
 
+import com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO.TokenDTO;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO.UserRegisterForm;
+import com.example.java_group_11_online_store_ayday_mirbekkyzy.Exception.UserNotFoundException;
+import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.UserRepository;
+import com.example.java_group_11_online_store_ayday_mirbekkyzy.Service.TokenService;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Service.UserService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +23,11 @@ import static java.util.stream.Collectors.toList;
 
 @Controller
 @RequestMapping
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserController {
     public final UserService userService;
+    public final TokenService tokenService;
+    public final UserRepository userRepository;
 
 
     @GetMapping("/register")
@@ -57,6 +63,34 @@ public class UserController {
         return "profile";
     }
 
+    @GetMapping("/createToken")
+    public String showCreateTokenPage(Model model) {
+        return "init_user";
+    }
+
+    @GetMapping("/resetPassword")
+    public String showResetPage(Model model) {
+        return "reset_password";
+    }
+
+
+    @PostMapping("/createToken")
+    public String createToken(String email, @Valid TokenDTO token, Model model, BindingResult validResult, RedirectAttributes attributes) {
+        var user = userRepository.findUserByEmail(email).orElseThrow(UserNotFoundException::new);
+        model.addAttribute("user", user.getEmail());
+        tokenService.createToken(user.getEmail());
+        return "redirect:/resetPassword";
+    }
+
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestPart String email, @RequestPart String token, @RequestPart(name = "password") String newPassword, Model model, BindingResult validResult, RedirectAttributes attributes) {
+
+        model.addAttribute("email", email);
+        model.addAttribute("token", token);
+        model.addAttribute("password", newPassword);
+        tokenService.resetPassword(email, token, newPassword);
+        return "redirect:/login";
+    }
 
     @ExceptionHandler(BindException.class)
     private ResponseEntity<Object> handleBindExceptionResponseEntity(BindException ex) {
