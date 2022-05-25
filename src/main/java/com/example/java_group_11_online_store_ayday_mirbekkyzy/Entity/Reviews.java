@@ -6,7 +6,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
@@ -32,6 +34,9 @@ public class Reviews {
     @NotEmpty(message = "Review may not be empty")
     @Size(min = 6, message = "Review must be more 2 characters long")
     private String review;
+
+    @Past
+    private LocalDateTime date;
 
 
 }
