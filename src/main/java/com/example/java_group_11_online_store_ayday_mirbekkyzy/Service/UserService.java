@@ -28,7 +28,7 @@ public class UserService {
                 .email(form.getEmail())
                 .name(form.getName())
                 .login(form.getLogin())
-                .password(form.getPassword())
+                .password(encoder.encode(form.getPassword()))
                 .role(RolesEnum.USER)
                 .build();
 
