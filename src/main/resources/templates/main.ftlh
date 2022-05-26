@@ -39,6 +39,9 @@
         <nav class="reviews">
             <a class="navbar " aria-current="page" href="/reviews">Reviews</a>
         </nav>
+        <nav class="reviews">
+            <a class="navbar " aria-current="page" href="/reviews">Reviews</a>
+        </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
@@ -130,6 +133,7 @@
                                     </button>
                                 </div>
                             </form>
+                            <a href="/oneProduct?id=${product.id}" class="col">More</a>
 
                         </div>
                     </div>

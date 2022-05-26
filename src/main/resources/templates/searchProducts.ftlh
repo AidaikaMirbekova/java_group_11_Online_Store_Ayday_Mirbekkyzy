@@ -24,6 +24,9 @@
         <nav class="orders">
             <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
         </nav>
+        <nav class="reviews">
+            <a class="navbar " aria-current="page" href="/reviews">Reviews</a>
+        </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>

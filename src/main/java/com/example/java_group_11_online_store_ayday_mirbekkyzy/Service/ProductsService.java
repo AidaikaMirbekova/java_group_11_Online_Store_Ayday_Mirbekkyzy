@@ -4,6 +4,8 @@ import com.example.java_group_11_online_store_ayday_mirbekkyzy.DTO.ProductsDTO;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Entity.Products;
 import com.example.java_group_11_online_store_ayday_mirbekkyzy.Repository.ProductsRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,12 @@ public class ProductsService {
     public Page<ProductsDTO> getAllProducts(Pageable pageable) {
         Page<Products> products = productsRepository.findAll(pageable);
         return products.map(ProductsDTO::from);
+    }
+
+    @SneakyThrows
+    public ProductsDTO getOneProduct(Integer idProduct){
+        var product = productsRepository.findById(idProduct).orElseThrow(ChangeSetPersister.NotFoundException::new);
+        return ProductsDTO.from(product);
     }
 
     public Page<ProductsDTO> searchProducts(String keyword, Pageable pageable) {

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -27,6 +28,13 @@ public class ProductsController {
         model.addAttribute("pages", products.getPageable());
         model.addAttribute("lastPages", products.hasNext());
         return "main";
+    }
+
+    @GetMapping("/oneProduct")
+    public String showOneProduct(@RequestParam Integer id, Model model){
+        var product = productsService.getOneProduct(id);
+        model.addAttribute("product",product);
+        return "one_product";
     }
 
     @RequestMapping("/search")

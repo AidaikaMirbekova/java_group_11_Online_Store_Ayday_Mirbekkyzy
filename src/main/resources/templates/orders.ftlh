@@ -24,6 +24,9 @@
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
+        <nav class="reviews">
+            <a class="navbar " aria-current="page" href="/reviews">Reviews</a>
+        </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>

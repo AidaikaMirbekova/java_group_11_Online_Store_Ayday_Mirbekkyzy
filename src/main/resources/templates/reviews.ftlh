@@ -88,7 +88,7 @@
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
                         <p>${review.review}</p>
-                        <footer class="blockquote-footer">${review.date} <cite title="Source Title">Source Title</cite></footer>
+                        <footer class="blockquote-footer">${review.date}</footer>
                     </blockquote>
                 </div>
             </div>
