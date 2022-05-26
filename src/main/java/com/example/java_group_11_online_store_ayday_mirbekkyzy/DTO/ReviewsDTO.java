@@ -15,7 +15,6 @@ public class ReviewsDTO {
 
     private Integer id;
     private User user;
-    private Orders order;
     private String review;
     private LocalDateTime date;
 
@@ -23,7 +22,6 @@ public class ReviewsDTO {
         return builder()
                 .id(reviews.getId())
                 .user(reviews.getUser())
-                .order(reviews.getOrder())
                 .review(reviews.getReview())
                 .date(reviews.getDate())
                 .build();

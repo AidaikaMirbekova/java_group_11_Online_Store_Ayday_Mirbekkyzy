@@ -14,6 +14,15 @@
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/style.css">
+    <#--JavaScript link-->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Store.kg</title>
 </head>
 <body>
@@ -24,6 +33,10 @@
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
+        <nav class="orders">
+            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
+        </nav>
+
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
                 <#if _csrf??>
@@ -62,71 +75,43 @@
 </nav>
 
 <#--Content-->
-<div class="container">
-    <h5 style="text-align: center;margin-top: 5rem">Your orders</h5>
-    <#if ordersList??>
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Products</th>
-            <th scope="col">Description</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Date</th>
-            <th scope="col">Status</th>
-        </tr>
-        </thead>
+<div class="container content_container">
+    <#if reviewsList??>
 
-        <tbody>
-
-        <#list ordersList as order>
-            <tr>
-                <td>${order.product_id.name}</td>
-                <td>${order.product_id.description}</td>
-                <td>${order.quantity}</td>
-                <td>${order.price}</td>
-                <td>${order.date}</td>
-                <td>${order.status}</td>
-            </tr>
+    <#--    List reviews-->
+    <div class="reviews_list">
+        <#list reviewsList as review>
+            <div class="card">
+                <div class="card-header">
+                   ${review.user.login}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>${review.review}</p>
+                        <footer class="blockquote-footer">${review.date} <cite title="Source Title">Source Title</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
         </#list>
-        </tbody>
-    </table>
-
-
-    <div class="form-group">
-        <form action="/api/addReview" method="post" id="review_form">
-            <#if _csrf??>
-                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
-                       value="${(_csrf.token)!'--no-token--'}"/>
-            </#if>
-            <input name="username" value="${(user.email)!''}" hidden>
-            <label for="review_leave_area">You can share your feedback with us.</label>
-            <textarea form="review_form" name="review" class="form-control" id="review_leave_area" rows="3">
-
-            </textarea>
-            <button class="btn btn-outline-info mb-5">Save review</button>
-        </form>
     </div>
-
     <#else>
-    <h1 style="text-align: center">Orders is empty!!!</h1>
+        <h5 style="text-align: center"><p>There are no reviews yet,</p>
+            <p>but you can place an order and share a review</p></h5>
     </#if>
 </div>
 
-<#--footer-->
+<#--pageable-->
 <footer>
     <div class="container">
         <#if pages??>
             <#if pages.hasPrevious()>
-                <a href="/api/showOrders?page=${pages.pageNumber-1}&size=10" style="float: left" tabindex="0">Previous
-                    page</a>
+                <a href="/review?page=${pages.pageNumber-1}&size=10" style="float: left" tabindex="0">Previous page</a>
             <#else>
                 <span id="loadPrev" hidden>First page</span>
             </#if>
 
             <#if lastPages>
-                <a href="/api/showOrders?page=${pages.pageNumber+1}&size=10" style="float: right" tabindex="0">Next
-                    page</a>
+                <a href="/review?page=${pages.pageNumber+1}&size=10" style="float: right" tabindex="0">Next page</a>
             <#else>
                 <span id="loadPrev" hidden style="float: right">Last page</span>
             </#if>
