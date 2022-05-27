@@ -81,7 +81,7 @@
 
 <#--Content-->
 <div class="container content_container">
-    <h1 style="text-align: center"><@spring.message "user.not.found"/></h1>
+    <h1 style="text-align: center">${recource} ${email}</h1>
 </div>
 </body>
 </html>
