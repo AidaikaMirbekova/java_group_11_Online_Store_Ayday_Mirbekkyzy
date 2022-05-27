@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -23,15 +24,15 @@
 <#--Navbar-->
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Online Store</a>
+        <a class="navbar-brand" href="/"><@spring.message "logo" /></a>
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="orders">
-            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
+            <a class="navbar " aria-current="page" href="/api/showOrders"><@spring.message "orders" /></a>
         </nav>
         <nav class="reviews">
-            <a class="navbar " aria-current="page" href="/reviews">Reviews</a>
+            <a class="navbar " aria-current="page" href="/reviews"><@spring.message "reviews" /></a>
         </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
@@ -40,18 +41,18 @@
                            value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
                 <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
-                       placeholder="Search" aria-label="Search">
-                <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
+                       placeholder="<@spring.message "search" />" aria-label="Search">
+                <button class="btn btn btn-info search-button" type="submit" value="Search"><@spring.message "search" /></button>
             </form>
         </nav>
         <nav class="main-nav">
             <div class="user_info" style="color: black"></div>
             <nav class="sign_button">
-                <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
+                <button type="button" class="btn btn-outline-warning"><a href="/register"><@spring.message "sign.up" /></a>
                 </button>
             </nav>
             <nav>
-                <button type="button" class="btn btn-outline-warning"><a href="/login">Sign In</a>
+                <button type="button" class="btn btn-outline-warning"><a href="/login"><@spring.message "sign.in" /></a>
                 </button>
             </nav>
             <form class="flex box-128" action="/logout" method="post">
@@ -67,16 +68,16 @@
 
 <#--Content-->
 <div class="container">
-    <h5 style="text-align: center;margin-top: 5rem">Your busket</h5>
+    <h5 style="text-align: center;margin-top: 5rem"><@spring.message "your.basket" /></h5>
     <#if userBasket??>
         <table class="table">
             <thead class="thead-light">
             <tr>
-                <th scope="col">Products</th>
-                <th scope="col">Description</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Delete</th>
+                <th scope="col"><@spring.message "products" /></th>
+                <th scope="col"><@spring.message "description" /></th>
+                <th scope="col"><@spring.message "quantity" /></th>
+                <th scope="col"><@spring.message "price" /></th>
+                <th scope="col"><@spring.message "delete" /></th>
             </tr>
             </thead>
 
@@ -101,7 +102,7 @@
                         </td>
                     </form>
 
-                    <td>${basket.price}</td>
+                    <td>${basket.price?string.currency}<@spring.message "som" /></td>
 <#--                Delete one basket-->
                 <form action="/api/basket/delete" method="post" id="basket_form_delete_one">
                     <#if _csrf??>
@@ -122,7 +123,7 @@
                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
             </#if>
             <input name="username" value="${(user.email)!''}" hidden>
-            <button class="btn btn-outline-info delete_baskets_all">Clear basket</button>
+            <button class="btn btn-outline-info delete_baskets_all"><@spring.message "clear.basket" /></button>
         </form>
     <#--Order -->
         <form action="/api/addOrder" method="post" class="form_order">
@@ -130,11 +131,11 @@
                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
             </#if>
             <input name="username" value="${(user.email)!''}" hidden>
-            <button class="btn btn-outline-info order_button">Order</button>
+            <button class="btn btn-outline-info order_button"><@spring.message "to.order" /></button>
         </form>
 
     <#else>
-        <h1 style="text-align: center">Basket is empty!!!</h1>
+        <h1 style="text-align: center"><@spring.message "basket.is.empty" /></h1>
     </#if>
 </div>
 
@@ -143,20 +144,18 @@
     <div class="container">
         <#if pages??>
             <#if pages.hasPrevious()>
-                <a href="/api/basket?page=${pages.pageNumber-1}&size=10" style="float: left" tabindex="0">Previous
-                    page</a>
+                <a href="/api/basket?page=${pages.pageNumber-1}&size=10" style="float: left" tabindex="0"><@spring.message "previous.page" /></a>
             <#else>
                 <span id="loadPrev" hidden>First page</span>
             </#if>
 
             <#if lastPages>
-                <a href="/api/basket?page=${pages.pageNumber+1}&size=10" style="float: right" tabindex="0">Next page</a>
+                <a href="/api/basket?page=${pages.pageNumber+1}&size=10" style="float: right" tabindex="0"><@spring.message "next.page" /></a>
             <#else>
                 <span id="loadPrev" hidden style="float: right">Last page</span>
             </#if>
         </#if>
     </div>
 </footer>
-<script src="/js/script.js"></script>
 </body>
 </html>

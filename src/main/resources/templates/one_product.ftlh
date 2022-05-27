@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring >
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -29,18 +30,15 @@
 <#--Navbar-->
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Online Store</a>
+        <a class="navbar-brand" href="/"><@spring.message "logo" /></a>
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="orders">
-            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
+            <a class="navbar " aria-current="page" href="/api/showOrders"><@spring.message "orders" /></a>
         </nav>
         <nav class="reviews">
-            <a class="navbar " aria-current="page" href="/reviews">Reviews</a>
-        </nav>
-        <nav class="reviews">
-            <a class="navbar " aria-current="page" href="/reviews">Reviews</a>
+            <a class="navbar " aria-current="page" href="/reviews"><@spring.message "reviews" /></a>
         </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
@@ -49,8 +47,8 @@
                            value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
                 <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
-                       placeholder="Search" aria-label="Search">
-                <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
+                       placeholder="<@spring.message "search" />" aria-label="Search">
+                <button class="btn btn btn-info search-button" type="submit" value="Search"><@spring.message "search" /></button>
             </form>
         </nav>
         <nav class="main-nav">
@@ -61,11 +59,11 @@
                 </button>
             </nav>
             <nav class="sign_button">
-                <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
+                <button type="button" class="btn btn-outline-warning"><a href="/register"><@spring.message "sign.up" /></a>
                 </button>
             </nav>
             <nav>
-                <button type="button" class="btn btn-outline-warning"><a href="/login">Sign In</a>
+                <button type="button" class="btn btn-outline-warning"><a href="/login"><@spring.message "sign.in" /></a>
                 </button>
             </nav>
             <form class="flex box-128" action="/logout" method="post">
@@ -90,10 +88,10 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Brand: ${product.name}</h5>
-                            <p class="card-text">Model: ${product.description}</p>
-                            <p class="card-text"><small>Price: ${product.price} som.</small></p>
-                            <p class="card-text"><small class="text-muted">In stock: ${product.quantity} pieces</small>
+                            <h5 class="card-title"><@spring.message "brand" />: ${product.name}</h5>
+                            <p class="card-text"><@spring.message "model" />: ${product.description}</p>
+                            <p class="card-text"><small><@spring.message "price" />: ${product.price?string.currency} <@spring.message "som" /></small></p>
+                            <p class="card-text"><small class="text-muted"><@spring.message "in.stock" />: ${product.quantity} <@spring.message "pieces" /></small>
                             </p>
                         </div>
                     </div>

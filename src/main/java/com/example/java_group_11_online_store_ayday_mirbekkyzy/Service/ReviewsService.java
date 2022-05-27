@@ -30,7 +30,7 @@ public class ReviewsService {
                     .date(LocalDateTime.now())
                     .build());
         } else {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User not found!!!");
         }
     }
 

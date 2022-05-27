@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -20,15 +21,15 @@
 <#--Navbar-->
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Online Store</a>
+        <a class="navbar-brand" href="/"><@spring.message "logo" /></a>
         <nav class="profile">
             <a class="nav-link active" aria-current="page" href="/api/profile"><i class="bi bi-person-square"></i></a>
         </nav>
         <nav class="orders">
-            <a class="navbar " aria-current="page" href="/api/showOrders">Orders</a>
+            <a class="navbar " aria-current="page" href="/api/showOrders"><@spring.message "orders" /></a>
         </nav>
         <nav class="reviews">
-            <a class="navbar " aria-current="page" href="/reviews">Reviews</a>
+            <a class="navbar " aria-current="page" href="/reviews"><@spring.message "reviews" /></a>
         </nav>
         <nav class="search-nav">
             <form action="/search" class="d-flex search_products">
@@ -37,8 +38,8 @@
                            value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
                 <input class="form-control me-2" type="text" name="keyword" id="keyword" minlength="2"
-                       placeholder="Search" aria-label="Search">
-                <button class="btn btn btn-info search-button" type="submit" value="Search">Search</button>
+                       placeholder="<@spring.message "search" />" aria-label="Search">
+                <button class="btn btn btn-info search-button" type="submit" value="Search"><@spring.message "search" /></button>
             </form>
         </nav>
         <nav class="main-nav">
@@ -49,7 +50,7 @@
                 </button>
             </nav>
             <nav>
-                <button type="button" class="btn btn-outline-warning"><a href="/register">Sign UP</a>
+                <button type="button" class="btn btn-outline-warning"><a href="/register"><@spring.message "sign.up" /></a>
                 </button>
             </nav>
             <form class="flex box-128" action="/logout" method="post">
@@ -70,7 +71,7 @@
 
         <div>
             <#if error!false >
-                <p style="color:red">Incorrect username and password!!!</p>
+                <p style="color:red"><@spring.message "login.title" /></p>
             </#if>
         </div>
 
@@ -79,20 +80,20 @@
         </#if>
         <div class="mb-3 row">
             <div class="col-sm-10">
-                <input type="email" name="username" class="form-control" placeholder="Email" value="${(user.email)!''}"
+                <input type="email" name="username" class="form-control" placeholder="<@spring.message "email" />" value="${(user.email)!''}"
                        required autofocus>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" placeholder="Password" value="" required>
+                <input type="password" name="password" class="form-control" placeholder="<@spring.message "password" />" value="" required>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary sign">Sign in</button>
+        <button type="submit" class="btn btn-primary sign"><@spring.message "sign.in" /></button>
     </form>
     <div class="mb-3 row">
         <div class="col-sm-10">
-        <a href="/createToken">Forgot password?</a>
+        <a href="/createToken"><@spring.message "login.forgot" /></a>
         </div>
     </div>
     </div>
