@@ -70,7 +70,7 @@
     <form action="/login" method="post" id="sign_in" class="sign-in-htm">
 
         <div>
-            <#if error!false >
+            <#if error!true >
                 <p style="color:red"><@spring.message "login.title" /></p>
             </#if>
         </div>

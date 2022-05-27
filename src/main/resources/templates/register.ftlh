@@ -73,25 +73,25 @@
         <div class="mb-3 row">
             <div class="col-sm-10">
                 <input type="email" name="email" class="form-control" id="inputEmail" placeholder="<@spring.message "email" />"
-                       value="${(user.email)!''}" required>
+                       value="${(form.email)!''}" required>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-sm-10">
                 <input type="text" name="name" class="form-control" id="inputName" placeholder="<@spring.message "name" />"
-                       minlength="2" maxlength="24" value="${(user.name)!''}" required>
+                       minlength="2" maxlength="24" value="${(form.name)!''}" required>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-sm-10">
                 <input type="text" name="login" class="form-control" id="inputLogin" placeholder="<@spring.message "login" />"
-                       minlength="5" maxlength="15" value="${(user.login)!''}" required>
+                       minlength="5" maxlength="15" value="${(form.login)!''}" required>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-sm-10">
                 <input type="password" name="password" class="form-control" id="inputPassword"
-                       placeholder="<@spring.message "password" />" minlength="5" value="" required>
+                       placeholder="<@spring.message "password" />" minlength="5" value="${(form.password)!''}" required>
             </div>
         </div>
         <button type="submit" class="btn btn-primary sign"><@spring.message "sign.up" /></button>
@@ -107,7 +107,5 @@
     </form>
 </div>
 
-
-<script src="/js/script.js"></script>
 </body>
 </html>
