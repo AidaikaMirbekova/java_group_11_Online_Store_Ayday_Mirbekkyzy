@@ -14,13 +14,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 })
 public class UserControllerAdvice {
 
-
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private String userNotFound(UserNotFoundException ex, Model model){
         model.addAttribute("ex", ex.toString());
         return "user-not-found";
     }
-
-
 }

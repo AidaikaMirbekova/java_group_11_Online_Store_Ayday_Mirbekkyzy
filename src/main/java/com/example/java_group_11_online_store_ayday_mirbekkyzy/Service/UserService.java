@@ -37,7 +37,7 @@ public class UserService {
     }
 
     public UserDTO login(String email) {
-        var user = userRepository.findUserByEmail(email).orElseThrow(UserNotFoundException::new);
+        var user = userRepository.findUserByEmail(email).orElseThrow(()->new UserNotFoundException("User not found!!!"));
         return UserDTO.from(user);
     }
 

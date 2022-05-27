@@ -76,7 +76,7 @@ public class UserController {
 
     @PostMapping("/createToken")
     public String createToken(String email, @Valid TokenDTO token, Model model, BindingResult validResult, RedirectAttributes attributes) {
-        var user = userRepository.findUserByEmail(email).orElseThrow(UserNotFoundException::new);
+        var user = userRepository.findUserByEmail(email).orElseThrow(()->new UserNotFoundException("User not found!!!!"));
         model.addAttribute("user", user.getEmail());
         tokenService.createToken(user.getEmail());
         return "redirect:/resetPassword";

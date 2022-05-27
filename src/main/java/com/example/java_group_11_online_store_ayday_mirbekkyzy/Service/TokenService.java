@@ -35,12 +35,12 @@ public class TokenService {
     public void resetPassword(String email,String tokenValue,String newPassword){
         var tokenOp = tokenRepository.findTokensMakerByUserEmailAndToken(email, tokenValue);
         if(tokenOp.isPresent()){
-        var user = userRepository.findUserByEmail(email).orElseThrow(UserNotFoundException::new);
+        var user = userRepository.findUserByEmail(email).orElseThrow(()->new UserNotFoundException("User not found!!!"));
             user.setPassword(encoder.encode(newPassword));
             userRepository.save(user);
             tokenRepository.delete(tokenOp.get());
         }else {
-           throw new UserNotFoundException();
+           throw new UserNotFoundException("User not found!");
         }
     }
 
