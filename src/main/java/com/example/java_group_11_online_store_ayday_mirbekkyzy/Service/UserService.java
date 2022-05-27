@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.ReadOnlyFileSystemException;
+
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -21,7 +23,7 @@ public class UserService {
 
     public void register(UserRegisterForm form) {
         if (userRepository.existsUserByEmail(form.getEmail())) {
-            throw new UserAlreadyRegister();
+            throw new UserAlreadyRegister("Have account with email", form.getEmail());
         }
 
         var user = User.builder()
@@ -37,7 +39,7 @@ public class UserService {
     }
 
     public UserDTO login(String email) {
-        var user = userRepository.findUserByEmail(email).orElseThrow(()->new UserNotFoundException("User not found!!!"));
+        var user = userRepository.findUserByEmail(email).orElseThrow(()->new UserNotFoundException("User not found",email));
         return UserDTO.from(user);
     }
 

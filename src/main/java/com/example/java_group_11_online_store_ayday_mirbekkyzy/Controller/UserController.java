@@ -41,7 +41,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@Valid UserRegisterForm form, BindingResult validResult, RedirectAttributes attributes) {
-        attributes.addFlashAttribute("user", form);
+        attributes.addFlashAttribute("form", form);
         if (validResult.hasFieldErrors()) {
             attributes.addFlashAttribute("errors", validResult.getFieldErrors());
             return "redirect:/register";
@@ -76,7 +76,7 @@ public class UserController {
 
     @PostMapping("/createToken")
     public String createToken(String email, @Valid TokenDTO token, Model model, BindingResult validResult, RedirectAttributes attributes) {
-        var user = userRepository.findUserByEmail(email).orElseThrow(()->new UserNotFoundException("User not found!!!!"));
+        var user = userRepository.findUserByEmail(email).orElseThrow(()->new UserNotFoundException("User not found!!!!",email));
         model.addAttribute("user", user.getEmail());
         tokenService.createToken(user.getEmail());
         return "redirect:/resetPassword";
